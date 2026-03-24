@@ -1037,7 +1037,7 @@
             id="infinite-label"
             onclick="toggleInfinite()"
           >
-            <input type="checkbox" id="infinite-rounds" />
+            <input type="checkbox" id="infinite-rounds" onchange="toggleInfinite()"  />
             <div class="custom-checkbox"><span class="cck">✓</span></div>
             Infinite
           </label>
@@ -1370,11 +1370,15 @@
       // ══════════════════════════════════════════════
       let infiniteMode = false
       function toggleInfinite() {
-        infiniteMode = !infiniteMode
+        const checkbox = document.getElementById('infinite-rounds')
+        infiniteMode = checkbox.checked
+
         document
           .getElementById('infinite-label')
           .classList.toggle('active', infiniteMode)
+
         document.getElementById('rounds-input').disabled = infiniteMode
+
         updateRoundsPreview()
       }
       function updateRoundsPreview() {
