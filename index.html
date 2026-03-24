@@ -6,243 +6,191 @@
 <title>RANKDOWN</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --border: #2a2a3a;
-    --text: #e8e8f0;
-    --muted: #666680;
-    --accent: #f5e642;
-    --accent2: #ff4d6d;
-    --correct: #39d98a;
-    --wrong: #ff4d6d;
-    --rank-color: #a78bfa;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'Syne', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    min-height: 100vh;
-    overflow-x: hidden;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,230,66,0.07) 0%, transparent 60%),
-      linear-gradient(rgba(42,42,58,0.3) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(42,42,58,0.3) 1px, transparent 1px);
-    background-size: 100% 100%, 40px 40px, 40px 40px;
-  }
-
-  .screen { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-  .screen.active { display: flex; }
-
-  /* ── TITLE ── */
-  #screen-title { gap: 24px; text-align: center; }
-
-  .logo {
-    font-family: var(--font-display);
-    font-size: clamp(72px, 15vw, 130px);
-    letter-spacing: 0.04em;
-    line-height: 1;
-    background: linear-gradient(135deg, var(--accent) 0%, #ff9f1c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% { filter: drop-shadow(0 0 20px rgba(245,230,66,0.3)); }
-    50% { filter: drop-shadow(0 0 40px rgba(245,230,66,0.6)); }
-  }
-
-  .tagline { font-size: 14px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
-
-  .how-to-play {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 32px;
-    max-width: 540px;
-    text-align: left;
-    margin-top: 8px;
-  }
-
-  .how-to-play h3 { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; font-weight: 700; }
-
-  .how-to-play ol { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-
-  .how-to-play li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; color: #b0b0c8; }
-
-  .step-num { background: var(--accent); color: #000; font-family: var(--font-mono); font-size: 11px; font-weight: 700; width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-
-  .scoring-note { margin-top: 14px; padding: 12px 16px; background: rgba(245,230,66,0.07); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; font-size: 13px; color: #c8c8e0; font-style: italic; }
-
-  .btn { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.1em; padding: 14px 40px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.15s ease; text-transform: uppercase; }
-  .btn-primary { background: var(--accent); color: #000; }
-  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,230,66,0.3); }
-  .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); font-size: 16px; padding: 10px 24px; }
-  .btn-secondary:hover { border-color: var(--text); color: var(--text); }
-
-  /* ── CATEGORIES ── */
-  #screen-categories { gap: 32px; justify-content: flex-start; padding-top: 60px; padding-bottom: 60px; }
-  .screen-header { text-align: center; }
-  .screen-title { font-family: var(--font-display); font-size: clamp(36px, 6vw, 56px); letter-spacing: 0.05em; }
-  .screen-sub { font-size: 13px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 6px; }
-
-  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; max-width: 900px; width: 100%; }
-
-  .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; cursor: pointer; transition: all 0.2s ease; position: relative; overflow: hidden; }
-  .cat-card::before { content: ''; position: absolute; inset: 0; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-  .cat-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(245,230,66,0.15); }
-  .cat-card:hover::before { opacity: 0.04; }
-  .cat-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
-  .cat-name { font-size: 15px; font-weight: 800; margin-bottom: 4px; line-height: 1.3; }
-  .cat-meta { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
-  .cat-count { position: absolute; top: 14px; right: 14px; font-family: var(--font-mono); font-size: 10px; color: var(--accent); background: rgba(245,230,66,0.1); padding: 3px 7px; border-radius: 4px; }
-
-  /* ── GAME ── */
-  #screen-game { justify-content: flex-start; padding-top: 0; gap: 0; }
-
-  .game-header { width: 100%; background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 10; }
-  .game-header-left { display: flex; align-items: center; gap: 16px; }
-  .game-cat-name { font-family: var(--font-display); font-size: 20px; letter-spacing: 0.08em; color: var(--accent); }
-  .rounds-badge { font-family: var(--font-mono); font-size: 12px; color: var(--muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border); }
-  .rounds-badge span { color: var(--text); font-weight: 700; }
-  .score-display { font-family: var(--font-display); font-size: 28px; letter-spacing: 0.05em; color: var(--accent); display: flex; align-items: baseline; gap: 4px; }
-  .score-display small { font-size: 12px; color: var(--muted); font-family: var(--font-body); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-
-  .game-body { display: grid; grid-template-columns: 1fr 320px; gap: 0; width: 100%; max-width: 1060px; margin: 0 auto; padding: 24px; flex: 1; align-items: start; }
-  @media (max-width: 720px) { .game-body { grid-template-columns: 1fr; } .game-sidebar { order: -1; } }
-
-  .game-main { display: flex; flex-direction: column; gap: 20px; }
-
-  .input-zone { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 20px; transition: border-color 0.2s; }
-  .input-zone:focus-within { border-color: var(--accent); }
-  .input-zone label { display: block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 700; }
-  .input-row { display: flex; gap: 10px; }
-
-  #guess-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; color: var(--text); font-family: var(--font-body); font-size: 16px; outline: none; transition: border-color 0.2s; }
-  #guess-input:focus { border-color: rgba(245,230,66,0.5); }
-  #guess-input::placeholder { color: var(--muted); }
-
-  .btn-guess { background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 12px 20px; font-family: var(--font-display); font-size: 20px; letter-spacing: 0.05em; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .btn-guess:hover { background: #fff; }
-  .btn-guess:active { transform: scale(0.97); }
-
-  .feedback { padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.03em; display: none; align-items: center; gap: 10px; animation: slide-in 0.2s ease; }
-  @keyframes slide-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-  .feedback.correct { display: flex; background: rgba(57,217,138,0.12); border: 1px solid rgba(57,217,138,0.3); color: var(--correct); }
-  .feedback.wrong { display: flex; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,77,109,0.3); color: var(--wrong); }
-  .feedback.dupe { display: flex; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); color: var(--rank-color); }
-  .feedback-rank { font-family: var(--font-display); font-size: 22px; margin-left: auto; }
-
-  .found-list { display: flex; flex-direction: column; gap: 6px; }
-  .found-header { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
-  .found-item { background: var(--surface); border: 1px solid rgba(57,217,138,0.2); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  @keyframes pop-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-  .found-rank { font-family: var(--font-mono); font-size: 11px; color: var(--muted); min-width: 32px; }
-  .found-name { font-size: 14px; font-weight: 700; flex: 1; }
-  .found-pts { font-family: var(--font-display); font-size: 20px; color: var(--correct); letter-spacing: 0.05em; }
-
-  .game-sidebar { padding-left: 24px; border-left: 1px solid var(--border); margin-left: 24px; display: flex; flex-direction: column; gap: 20px; }
-  @media (max-width: 720px) { .game-sidebar { padding-left: 0; border-left: none; margin-left: 0; } }
-
-  .sidebar-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-  .sidebar-block h4 { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; font-weight: 700; }
-
-  .rounds-bar { display: flex; gap: 4px; flex-wrap: wrap; }
-  .round-pip { width: 18px; height: 8px; border-radius: 2px; background: rgba(255,255,255,0.1); transition: all 0.3s; }
-  .round-pip.used { background: var(--accent2); }
-  .round-pip.correct { background: var(--correct); }
-
-  .tip-text { font-size: 13px; color: #9090b0; line-height: 1.6; }
-  .tip-text strong { color: var(--accent); }
-
-  .progress-wrap { width: 100%; }
-  .progress-bar-outer { background: var(--border); border-radius: 4px; height: 4px; overflow: hidden; margin-top: 6px; }
-  .progress-bar-inner { height: 100%; background: var(--correct); border-radius: 4px; transition: width 0.4s ease; }
-  .progress-label { font-size: 11px; color: var(--muted); font-family: var(--font-mono); }
-
-  .give-up-btn { width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--muted); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: all 0.2s; }
-  .give-up-btn:hover { border-color: var(--accent2); color: var(--accent2); }
-
-  .missed-guesses { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-  .missed-pill { background: rgba(255,77,109,0.1); border: 1px solid rgba(255,77,109,0.2); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--accent2); font-family: var(--font-mono); }
-  .missed-pill::before { content: '✗ '; opacity: 0.7; }
-
-  .collapse-toggle { background: none; border: none; color: var(--muted); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-family: var(--font-body); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 0; margin-bottom: 8px; }
-  .collapse-toggle:hover { color: var(--text); }
-  .collapsed { display: none !important; }
-
-  /* ── RESULTS ── */
-  #screen-results { gap: 28px; padding: 40px 20px; justify-content: flex-start; padding-top: 60px; }
-
-  .results-hero { text-align: center; }
-  .results-label { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .results-score { font-family: var(--font-display); font-size: clamp(80px, 15vw, 130px); background: linear-gradient(135deg, var(--correct) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; letter-spacing: 0.03em; }
-  .score-verdict { font-size: 16px; color: var(--muted); font-style: italic; text-align: center; }
-  .score-verdict strong { color: var(--text); font-style: normal; }
-
-  .results-breakdown { max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 6px; }
-  .breakdown-header { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 0 16px 8px; }
-
-  .breakdown-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 11px 16px; display: flex; align-items: center; gap: 12px; }
-  .breakdown-item.hit { border-color: rgba(57,217,138,0.25); }
-  .breakdown-item.miss { opacity: 0.45; }
-  .breakdown-rank { font-family: var(--font-mono); font-size: 10px; color: var(--muted); min-width: 36px; }
-  .breakdown-name { font-size: 14px; flex: 1; font-weight: 600; }
-  .missed-tag { font-size: 10px; color: var(--muted); font-style: italic; margin-left: 4px; }
-  .breakdown-pts { font-family: var(--font-display); font-size: 20px; letter-spacing: 0.05em; }
-  .breakdown-item.hit .breakdown-pts { color: var(--correct); }
-  .breakdown-item.miss .breakdown-pts { color: var(--muted); }
-
-  .results-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-
-  .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
-  .confetti-piece { position: absolute; animation: confetti-fall linear forwards; }
-  @keyframes confetti-fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+:root{--bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--border:#2a2a3a;--text:#e8e8f0;--muted:#666680;--accent:#f5e642;--accent2:#ff4d6d;--correct:#39d98a;--wrong:#ff4d6d;--rank-color:#a78bfa;--fd:'Bebas Neue',sans-serif;--fb:'Syne',sans-serif;--fm:'Space Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;overflow-x:hidden;background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(245,230,66,.07) 0%,transparent 60%),linear-gradient(rgba(42,42,58,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(42,42,58,.3) 1px,transparent 1px);background-size:100% 100%,40px 40px,40px 40px}
+.screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.screen.active{display:flex}
+#screen-title{gap:24px;text-align:center}
+.logo{font-family:var(--fd);font-size:clamp(72px,15vw,130px);letter-spacing:.04em;line-height:1;background:linear-gradient(135deg,var(--accent) 0%,#ff9f1c 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:pulse-glow 3s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{filter:drop-shadow(0 0 20px rgba(245,230,66,.3))}50%{filter:drop-shadow(0 0 40px rgba(245,230,66,.6))}}
+.tagline{font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.how-to-play{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 32px;max-width:540px;text-align:left}
+.how-to-play h3{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:700}
+.how-to-play ol{list-style:none;display:flex;flex-direction:column;gap:10px}
+.how-to-play li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:#b0b0c8}
+.step-num{background:var(--accent);color:#000;font-family:var(--fm);font-size:11px;font-weight:700;width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.scoring-note{margin-top:14px;padding:12px 16px;background:rgba(245,230,66,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:13px;color:#c8c8e0;font-style:italic}
+.btn{font-family:var(--fd);font-size:22px;letter-spacing:.1em;padding:14px 40px;border:none;border-radius:8px;cursor:pointer;transition:all .15s ease;text-transform:uppercase}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,230,66,.3)}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);font-size:16px;padding:10px 24px}
+.btn-secondary:hover{border-color:var(--text);color:var(--text)}
+#screen-categories{gap:22px;justify-content:flex-start;padding-top:50px;padding-bottom:60px}
+.screen-header{text-align:center}
+.screen-title{font-family:var(--fd);font-size:clamp(36px,6vw,56px);letter-spacing:.05em}
+.screen-sub{font-size:13px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:6px}
+.rounds-selector{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 24px;max-width:900px;width:100%;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.rounds-selector-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;flex-shrink:0}
+.rounds-selector-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.rounds-number-wrap{display:flex;align-items:center;gap:8px}
+.rounds-number-wrap label{font-size:13px;color:var(--muted)}
+#rounds-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--fm);font-size:16px;font-weight:700;width:72px;padding:8px 10px;text-align:center;outline:none;transition:border-color .2s}
+#rounds-input:focus{border-color:var(--accent)}
+#rounds-input:disabled{opacity:.35;cursor:not-allowed}
+.infinite-label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;font-weight:700;color:var(--muted);transition:color .2s;user-select:none}
+.infinite-label:hover{color:var(--text)}
+.infinite-label input[type=checkbox]{display:none}
+.custom-checkbox{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;background:var(--surface2)}
+.infinite-label.active .custom-checkbox{background:var(--accent);border-color:var(--accent)}
+.infinite-label.active .cck{display:block}
+.cck{display:none;color:#000;font-size:11px;font-weight:700;line-height:1}
+.infinite-label.active{color:var(--accent)}
+.rounds-preview{margin-left:auto;font-family:var(--fm);font-size:12px;color:var(--muted)}
+.rounds-preview strong{color:var(--accent);font-size:14px}
+.categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;max-width:900px;width:100%}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;cursor:pointer;transition:all .2s ease;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .2s;pointer-events:none}
+.cat-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(245,230,66,.15)}
+.cat-card:hover::before{opacity:.04}
+.cat-emoji{font-size:26px;margin-bottom:8px;display:block}
+.cat-name{font-size:15px;font-weight:800;margin-bottom:4px;line-height:1.3}
+.cat-meta{font-size:11px;color:var(--muted);font-family:var(--fm)}
+.cat-count{position:absolute;top:12px;right:12px;font-family:var(--fm);font-size:10px;color:var(--accent);background:rgba(245,230,66,.1);padding:3px 7px;border-radius:4px}
+.load-overlay{position:fixed;inset:0;background:rgba(10,10,15,.85);display:none;align-items:center;justify-content:center;z-index:100;flex-direction:column;gap:12px}
+.load-overlay.visible{display:flex}
+.load-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-text{font-size:13px;color:var(--muted);letter-spacing:.1em;font-family:var(--fm)}
+#screen-game{justify-content:flex-start;padding-top:0;gap:0}
+.game-header{width:100%;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:10}
+.game-header-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.game-cat-name{font-family:var(--fd);font-size:20px;letter-spacing:.08em;color:var(--accent)}
+.rounds-badge{font-family:var(--fm);font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);padding:5px 10px;border-radius:6px;border:1px solid var(--border)}
+.rounds-badge span{color:var(--text);font-weight:700}
+.infinite-badge{font-family:var(--fm);font-size:11px;color:var(--rank-color);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);padding:4px 10px;border-radius:20px;letter-spacing:.05em}
+.score-display{font-family:var(--fd);font-size:28px;letter-spacing:.05em;color:var(--accent);display:flex;align-items:baseline;gap:4px}
+.score-display small{font-size:12px;color:var(--muted);font-family:var(--fb);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.game-body{display:grid;grid-template-columns:1fr 300px;gap:0;width:100%;max-width:1040px;margin:0 auto;padding:22px;flex:1;align-items:start}
+@media(max-width:720px){.game-body{grid-template-columns:1fr}.game-sidebar{order:-1}}
+.game-main{display:flex;flex-direction:column;gap:18px}
+.input-zone{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:18px;transition:border-color .2s}
+.input-zone:focus-within{border-color:var(--accent)}
+.input-zone label{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:700}
+.input-row{display:flex;gap:10px}
+#guess-input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:var(--fb);font-size:16px;outline:none;transition:border-color .2s}
+#guess-input:focus{border-color:rgba(245,230,66,.5)}
+#guess-input::placeholder{color:var(--muted)}
+.btn-guess{background:var(--accent);color:#000;border:none;border-radius:8px;padding:12px 20px;font-family:var(--fd);font-size:20px;letter-spacing:.05em;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-guess:hover{background:#fff}
+.feedback{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:700;display:none;align-items:center;gap:10px;animation:slide-in .2s ease}
+@keyframes slide-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.feedback.correct{display:flex;background:rgba(57,217,138,.12);border:1px solid rgba(57,217,138,.3);color:var(--correct)}
+.feedback.wrong{display:flex;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.3);color:var(--wrong)}
+.feedback.dupe{display:flex;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:var(--rank-color)}
+.feedback-rank{font-family:var(--fd);font-size:22px;margin-left:auto}
+.found-list{display:flex;flex-direction:column;gap:5px}
+.found-header{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.found-item{background:var(--surface);border:1px solid rgba(57,217,138,.2);border-radius:8px;padding:9px 14px;display:flex;align-items:center;gap:10px;animation:pop-in .3s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes pop-in{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.found-rank{font-family:var(--fm);font-size:11px;color:var(--muted);min-width:32px}
+.found-name{font-size:14px;font-weight:700;flex:1}
+.found-pts{font-family:var(--fd);font-size:20px;color:var(--correct);letter-spacing:.05em}
+.game-sidebar{padding-left:22px;border-left:1px solid var(--border);margin-left:22px;display:flex;flex-direction:column;gap:16px}
+@media(max-width:720px){.game-sidebar{padding-left:0;border-left:none;margin-left:0}}
+.sidebar-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px}
+.sidebar-block h4{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:700}
+.rounds-bar{display:flex;gap:4px;flex-wrap:wrap}
+.round-pip{width:16px;height:7px;border-radius:2px;background:rgba(255,255,255,.1);transition:all .3s}
+.round-pip.used{background:var(--accent2)}
+.round-pip.correct{background:var(--correct)}
+.inf-counter{font-family:var(--fm);font-size:22px;color:var(--rank-color);font-weight:700}
+.inf-counter-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.tip-text{font-size:13px;color:#9090b0;line-height:1.6}
+.tip-text strong{color:var(--accent)}
+.progress-wrap{width:100%}
+.progress-bar-outer{background:var(--border);border-radius:4px;height:4px;overflow:hidden;margin-top:6px}
+.progress-bar-inner{height:100%;background:var(--correct);border-radius:4px;transition:width .4s ease}
+.progress-label{font-size:11px;color:var(--muted);font-family:var(--fm)}
+.give-up-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--muted);font-family:var(--fb);font-size:13px;cursor:pointer;transition:all .2s}
+.give-up-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+.missed-guesses{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.missed-pill{background:rgba(255,77,109,.1);border:1px solid rgba(255,77,109,.2);border-radius:20px;padding:3px 9px;font-size:12px;color:var(--accent2);font-family:var(--fm)}
+.missed-pill::before{content:'✗ ';opacity:.7}
+.collapse-toggle{background:none;border:none;color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:var(--fb);font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0;margin-bottom:6px}
+.collapse-toggle:hover{color:var(--text)}
+.collapsed{display:none!important}
+#screen-results{gap:26px;padding:40px 20px;justify-content:flex-start;padding-top:56px}
+.results-hero{text-align:center}
+.results-label{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.results-score{font-family:var(--fd);font-size:clamp(80px,15vw,130px);background:linear-gradient(135deg,var(--correct) 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;letter-spacing:.03em}
+.score-verdict{font-size:16px;color:var(--muted);font-style:italic;text-align:center;margin-top:6px}
+.score-verdict strong{color:var(--text);font-style:normal}
+.results-breakdown{max-width:600px;width:100%;display:flex;flex-direction:column;gap:5px}
+.breakdown-header{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 16px 8px}
+.breakdown-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.breakdown-item.hit{border-color:rgba(57,217,138,.25)}
+.breakdown-item.miss{opacity:.4}
+.breakdown-rank{font-family:var(--fm);font-size:10px;color:var(--muted);min-width:36px}
+.breakdown-name{font-size:14px;flex:1;font-weight:600}
+.missed-tag{font-size:10px;color:var(--muted);font-style:italic;margin-left:4px}
+.breakdown-pts{font-family:var(--fd);font-size:20px;letter-spacing:.05em}
+.breakdown-item.hit .breakdown-pts{color:var(--correct)}
+.breakdown-item.miss .breakdown-pts{color:var(--muted)}
+.results-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000}
+.confetti-piece{position:absolute;animation:confetti-fall linear forwards}
+@keyframes confetti-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 </style>
 </head>
 <body>
 
-<!-- TITLE -->
 <div id="screen-title" class="screen active">
   <div class="logo">Rankdown</div>
   <div class="tagline">The Niche Knowledge Party Game</div>
   <div class="how-to-play">
     <h3>How to Play</h3>
     <ol>
-      <li><div class="step-num">1</div><span>Pick a ranking category — countries by population, companies by market cap, and more.</span></li>
-      <li><div class="step-num">2</div><span>You have <strong>20 guesses</strong>. Type any item you think is in the list and press Enter.</span></li>
-      <li><div class="step-num">3</div><span>Score points equal to the item's <strong>rank number</strong>. Rank #1 = 1 pt. Rank #47 = 47 pts.</span></li>
-      <li><div class="step-num">4</div><span>Wrong guesses still use up a round. Hunt for obscure, high-ranked answers!</span></li>
+      <li><div class="step-num">1</div><span>Pick a category &amp; set how many rounds you want (or go infinite).</span></li>
+      <li><div class="step-num">2</div><span>Guess items you think are in the ranked list and press Enter.</span></li>
+      <li><div class="step-num">3</div><span>Score points equal to the item's <strong>rank number</strong>. Rank #1 = 1 pt. Rank #73 = 73 pts.</span></li>
+      <li><div class="step-num">4</div><span>Wrong guesses use up a round. Hunt for obscure, high-ranked answers!</span></li>
     </ol>
-    <div class="scoring-note">💡 Strategy: Don't waste guesses on the obvious #1. Hunt for the obscure gold in the 30s and 40s.</div>
+    <div class="scoring-note">💡 Strategy: Don't waste guesses on the obvious #1. Hunt for the obscure gold in the 40s–90s.</div>
   </div>
   <button class="btn btn-primary" onclick="showCategories()">Choose a Category →</button>
 </div>
 
-<!-- CATEGORIES -->
 <div id="screen-categories" class="screen">
   <div class="screen-header">
     <div class="screen-title">Choose Your Category</div>
-    <div class="screen-sub">Pick a category</div>
+    <div class="screen-sub">Pick a ranking · set your rounds · start guessing</div>
+  </div>
+  <div class="rounds-selector">
+    <div class="rounds-selector-label">Rounds per game</div>
+    <div class="rounds-selector-controls">
+      <div class="rounds-number-wrap">
+        <label for="rounds-input">Count:</label>
+        <input type="number" id="rounds-input" min="1" max="100" value="20" oninput="updateRoundsPreview()">
+      </div>
+      <label class="infinite-label" id="infinite-label" onclick="toggleInfinite()">
+        <input type="checkbox" id="infinite-rounds">
+        <div class="custom-checkbox"><span class="cck">✓</span></div>
+        Infinite
+      </label>
+    </div>
+    <div class="rounds-preview" id="rounds-preview"><strong>20</strong> rounds</div>
   </div>
   <div class="categories-grid" id="categories-grid"></div>
   <button class="btn btn-secondary" onclick="showTitle()">← Back</button>
 </div>
 
-<!-- GAME -->
 <div id="screen-game" class="screen">
   <div class="game-header">
     <div class="game-header-left">
       <div class="game-cat-name" id="header-cat-name"></div>
-      <div class="rounds-badge">Round <span id="header-round">1</span> / 20</div>
+      <div class="rounds-badge" id="rounds-badge">Round <span id="header-round">1</span> / <span id="header-maxround">20</span></div>
+      <div class="infinite-badge" id="infinite-badge" style="display:none">∞ INFINITE</div>
     </div>
     <div class="score-display"><small>Score</small><span id="header-score">0</span></div>
   </div>
@@ -268,8 +216,12 @@
     <div class="game-sidebar">
       <div class="sidebar-block">
         <h4>Rounds Used</h4>
-        <div class="rounds-bar" id="rounds-bar"></div>
-        <div style="margin-top:10px" class="progress-label" id="rounds-label">0 / 20 used</div>
+        <div id="rounds-bar-wrap"><div class="rounds-bar" id="rounds-bar"></div></div>
+        <div id="inf-counter-wrap" style="display:none">
+          <div class="inf-counter" id="inf-counter">0</div>
+          <div class="inf-counter-sub">guesses used</div>
+        </div>
+        <div style="margin-top:8px" class="progress-label" id="rounds-label">0 used</div>
       </div>
       <div class="sidebar-block">
         <h4>Category</h4>
@@ -288,7 +240,6 @@
   </div>
 </div>
 
-<!-- RESULTS -->
 <div id="screen-results" class="screen">
   <div class="results-hero">
     <div class="results-label">Final Score</div>
@@ -302,672 +253,254 @@
   </div>
 </div>
 
+<div class="load-overlay" id="load-overlay">
+  <div class="load-spinner"></div>
+  <div class="load-text" id="load-text">Loading category…</div>
+</div>
 <div class="confetti-container" id="confetti-container"></div>
 
 <script>
-const CATEGORIES = [
-  {
-    id:"pop", name:"Countries by Population", emoji:"🌍",
-    metric:"Total population, 2024 estimates",
-    tip:"💡 Everyone guesses India & China. Go for Mozambique (rank 36) instead.",
-    items:[
-      {name:"India",aliases:["bharat"]},
-      {name:"China",aliases:["prc","peoples republic of china"]},
-      {name:"United States",aliases:["usa","us","america","united states of america"]},
-      {name:"Indonesia"},
-      {name:"Pakistan"},
-      {name:"Brazil"},
-      {name:"Nigeria"},
-      {name:"Bangladesh"},
-      {name:"Ethiopia"},
-      {name:"Russia",aliases:["russian federation"]},
-      {name:"Mexico"},
-      {name:"Philippines"},
-      {name:"Egypt",aliases:["arab republic of egypt"]},
-      {name:"DR Congo",aliases:["democratic republic of congo","drc","congo","zaire","democratic republic of the congo"]},
-      {name:"Tanzania"},
-      {name:"Iran",aliases:["persia"]},
-      {name:"Turkey",aliases:["turkiye","turkiye"]},
-      {name:"Thailand"},
-      {name:"United Kingdom",aliases:["uk","great britain","england","britain"]},
-      {name:"France"},
-      {name:"South Africa"},
-      {name:"Vietnam",aliases:["viet nam"]},
-      {name:"Myanmar",aliases:["burma"]},
-      {name:"Kenya"},
-      {name:"Germany"},
-      {name:"Colombia"},
-      {name:"Uganda"},
-      {name:"Spain"},
-      {name:"Argentina"},
-      {name:"Algeria"},
-      {name:"Sudan"},
-      {name:"Iraq"},
-      {name:"Ukraine"},
-      {name:"Canada"},
-      {name:"Morocco"},
-      {name:"Mozambique"},
-      {name:"Poland"},
-      {name:"Ghana"},
-      {name:"Saudi Arabia"},
-      {name:"Angola"},
-      {name:"Malaysia"},
-      {name:"Cameroon"},
-      {name:"Ivory Coast",aliases:["cote divoire","cote d ivoire","ivory coast"]},
-      {name:"Nepal"},
-      {name:"Peru"},
-      {name:"Venezuela"},
-      {name:"Niger"},
-      {name:"Australia"},
-      {name:"Sri Lanka",aliases:["ceylon"]},
-      {name:"Burkina Faso"}
-    ]
-  },
-  {
-    id:"area", name:"Countries by Land Area", emoji:"🗺️",
-    metric:"Total land area in km², 2024",
-    tip:"💡 Russia is #1 at 17M km². Kazakhstan at #9 is already 9 sneaky points.",
-    items:[
-      {name:"Russia",aliases:["russian federation"]},
-      {name:"Canada"},
-      {name:"United States",aliases:["usa","us","america"]},
-      {name:"China",aliases:["prc"]},
-      {name:"Brazil"},
-      {name:"Australia"},
-      {name:"India",aliases:["bharat"]},
-      {name:"Argentina"},
-      {name:"Kazakhstan"},
-      {name:"Algeria"},
-      {name:"DR Congo",aliases:["drc","congo","democratic republic of congo"]},
-      {name:"Greenland",aliases:["kalaallit nunaat"]},
-      {name:"Saudi Arabia"},
-      {name:"Mexico"},
-      {name:"Indonesia"},
-      {name:"Sudan"},
-      {name:"Libya"},
-      {name:"Iran",aliases:["persia"]},
-      {name:"Mongolia"},
-      {name:"Peru"},
-      {name:"Chad"},
-      {name:"Niger"},
-      {name:"Angola"},
-      {name:"Mali"},
-      {name:"South Africa"},
-      {name:"Colombia"},
-      {name:"Ethiopia"},
-      {name:"Bolivia"},
-      {name:"Mauritania"},
-      {name:"Egypt",aliases:["arab republic of egypt"]},
-      {name:"Tanzania"},
-      {name:"Nigeria"},
-      {name:"Venezuela"},
-      {name:"Namibia"},
-      {name:"Mozambique"},
-      {name:"Pakistan"},
-      {name:"Turkey",aliases:["turkiye"]},
-      {name:"Chile"},
-      {name:"Zambia"},
-      {name:"Myanmar",aliases:["burma"]}
-    ]
-  },
-  {
-    id:"gdp", name:"Countries by GDP", emoji:"💰",
-    metric:"Nominal GDP (USD), 2024 IMF estimates",
-    tip:"💡 India at #5 outranks the UK. Indonesia and Saudi Arabia crack the top 20.",
-    items:[
-      {name:"United States",aliases:["usa","us","america"]},
-      {name:"China",aliases:["prc"]},
-      {name:"Germany"},
-      {name:"Japan"},
-      {name:"India",aliases:["bharat"]},
-      {name:"United Kingdom",aliases:["uk","great britain","britain"]},
-      {name:"France"},
-      {name:"Brazil"},
-      {name:"Italy"},
-      {name:"Canada"},
-      {name:"Russia",aliases:["russian federation"]},
-      {name:"South Korea",aliases:["korea","republic of korea"]},
-      {name:"Australia"},
-      {name:"Mexico"},
-      {name:"Spain"},
-      {name:"Indonesia"},
-      {name:"Netherlands",aliases:["holland"]},
-      {name:"Saudi Arabia"},
-      {name:"Turkey",aliases:["turkiye"]},
-      {name:"Switzerland"},
-      {name:"Taiwan",aliases:["chinese taipei","republic of china"]},
-      {name:"Poland"},
-      {name:"Argentina"},
-      {name:"Sweden"},
-      {name:"Belgium"},
-      {name:"Thailand"},
-      {name:"Norway"},
-      {name:"Israel"},
-      {name:"UAE",aliases:["united arab emirates"]},
-      {name:"Nigeria"},
-      {name:"Austria"},
-      {name:"South Africa"},
-      {name:"Philippines"},
-      {name:"Denmark"},
-      {name:"Malaysia"},
-      {name:"Singapore"},
-      {name:"Egypt",aliases:["arab republic of egypt"]},
-      {name:"Vietnam",aliases:["viet nam"]},
-      {name:"Chile"},
-      {name:"Bangladesh"}
-    ]
-  },
-  {
-    id:"marketcap", name:"Companies by Market Cap", emoji:"📈",
-    metric:"Market capitalization, early 2025",
-    tip:"💡 NVIDIA surged to #2. Aramco, Berkshire, and TSMC round out the top 10.",
-    items:[
-      {name:"Apple",aliases:["aapl"]},
-      {name:"NVIDIA",aliases:["nvda","nvidia corporation"]},
-      {name:"Microsoft",aliases:["msft"]},
-      {name:"Alphabet",aliases:["google","googl"]},
-      {name:"Amazon",aliases:["amzn"]},
-      {name:"Saudi Aramco",aliases:["aramco"]},
-      {name:"Meta",aliases:["facebook","meta platforms"]},
-      {name:"TSMC",aliases:["taiwan semiconductor","taiwan semiconductor manufacturing"]},
-      {name:"Berkshire Hathaway",aliases:["berkshire","brk"]},
-      {name:"Broadcom",aliases:["avgo"]},
-      {name:"Tesla",aliases:["tsla"]},
-      {name:"Eli Lilly",aliases:["lilly"]},
-      {name:"JPMorgan Chase",aliases:["jpmorgan","jpm","jp morgan"]},
-      {name:"Walmart",aliases:["wmt"]},
-      {name:"Visa",aliases:["v"]},
-      {name:"Mastercard",aliases:["ma"]},
-      {name:"ExxonMobil",aliases:["exxon","xom"]},
-      {name:"UnitedHealth",aliases:["unitedhealth group","unh"]},
-      {name:"Samsung",aliases:["samsung electronics"]},
-      {name:"LVMH",aliases:["lvmh moet hennessy"]},
-      {name:"Novo Nordisk",aliases:["novo"]},
-      {name:"Costco",aliases:["cost"]},
-      {name:"Johnson & Johnson",aliases:["jnj","johnson and johnson"]},
-      {name:"Procter & Gamble",aliases:["p&g","pg","procter and gamble"]},
-      {name:"Netflix",aliases:["nflx"]},
-      {name:"Home Depot",aliases:["hd"]},
-      {name:"Bank of America",aliases:["bofa","bac"]},
-      {name:"Chevron",aliases:["cvx"]},
-      {name:"ASML",aliases:["asml holding"]},
-      {name:"Hermes",aliases:["hermès"]},
-      {name:"Toyota",aliases:["toyota motor"]},
-      {name:"AbbVie",aliases:["abbv"]},
-      {name:"Tencent",aliases:["tencent holdings"]},
-      {name:"Oracle",aliases:["orcl"]},
-      {name:"Nestle",aliases:["nestlé"]},
-      {name:"AMD",aliases:["advanced micro devices"]},
-      {name:"T-Mobile",aliases:["tmus","tmobile"]},
-      {name:"Salesforce",aliases:["crm"]},
-      {name:"Adobe",aliases:["adbe"]},
-      {name:"Accenture"}
-    ]
-  },
-  {
-    id:"height", name:"Countries by Avg. Male Height", emoji:"📏",
-    metric:"Average adult male height, cm (NCD-RisC data)",
-    tip:"💡 Netherlands is #1 at ~183cm. The Balkans and Scandinavia dominate the top 20.",
-    items:[
-      {name:"Netherlands",aliases:["holland"]},
-      {name:"Montenegro"},
-      {name:"Denmark"},
-      {name:"Bosnia and Herzegovina",aliases:["bosnia","bih","bosnia herzegovina"]},
-      {name:"Norway"},
-      {name:"Serbia"},
-      {name:"Sweden"},
-      {name:"Iceland"},
-      {name:"Germany"},
-      {name:"Croatia"},
-      {name:"Finland"},
-      {name:"Latvia"},
-      {name:"Czech Republic",aliases:["czechia"]},
-      {name:"Slovenia"},
-      {name:"Lithuania"},
-      {name:"Slovakia"},
-      {name:"Austria"},
-      {name:"Australia"},
-      {name:"Estonia"},
-      {name:"Switzerland"},
-      {name:"Belgium"},
-      {name:"United Kingdom",aliases:["uk","britain","england"]},
-      {name:"Poland"},
-      {name:"Hungary"},
-      {name:"Ireland"},
-      {name:"New Zealand"},
-      {name:"Luxembourg"},
-      {name:"Greece"},
-      {name:"Canada"},
-      {name:"Bulgaria"},
-      {name:"France"},
-      {name:"Romania"},
-      {name:"United States",aliases:["usa","us","america"]},
-      {name:"Spain"},
-      {name:"Portugal"},
-      {name:"Italy"},
-      {name:"Russia",aliases:["russian federation"]},
-      {name:"Belarus"},
-      {name:"Ukraine"},
-      {name:"Japan"}
-    ]
-  },
-  {
-    id:"lifeexp", name:"Countries by Life Expectancy", emoji:"🌿",
-    metric:"Average life expectancy at birth, WHO 2024",
-    tip:"💡 Monaco and Japan lead. Small nations like San Marino and Andorra rank surprisingly high.",
-    items:[
-      {name:"Monaco"},
-      {name:"Japan"},
-      {name:"Singapore"},
-      {name:"San Marino"},
-      {name:"Iceland"},
-      {name:"Andorra"},
-      {name:"Liechtenstein"},
-      {name:"Switzerland"},
-      {name:"South Korea",aliases:["korea","republic of korea"]},
-      {name:"Australia"},
-      {name:"Spain"},
-      {name:"Norway"},
-      {name:"Israel"},
-      {name:"Sweden"},
-      {name:"Luxembourg"},
-      {name:"Italy"},
-      {name:"France"},
-      {name:"Malta"},
-      {name:"Canada"},
-      {name:"New Zealand"},
-      {name:"Ireland"},
-      {name:"Netherlands",aliases:["holland"]},
-      {name:"United Kingdom",aliases:["uk","britain","england"]},
-      {name:"Cyprus"},
-      {name:"Austria"},
-      {name:"Greece"},
-      {name:"Finland"},
-      {name:"Belgium"},
-      {name:"Germany"},
-      {name:"Denmark"},
-      {name:"Portugal"},
-      {name:"Chile"},
-      {name:"Slovenia"},
-      {name:"Taiwan",aliases:["chinese taipei"]},
-      {name:"Costa Rica"},
-      {name:"Oman"},
-      {name:"Czech Republic",aliases:["czechia"]},
-      {name:"Qatar"},
-      {name:"Bahrain"},
-      {name:"UAE",aliases:["united arab emirates"]}
-    ]
-  },
-  {
-    id:"density", name:"Countries by Pop. Density", emoji:"🔢",
-    metric:"People per km², 2024 (excl. micro-states)",
-    tip:"💡 Bangladesh, South Korea, Rwanda — far denser than most people expect.",
-    items:[
-      {name:"Bangladesh"},
-      {name:"South Korea",aliases:["korea","republic of korea"]},
-      {name:"Lebanon"},
-      {name:"Rwanda"},
-      {name:"Netherlands",aliases:["holland"]},
-      {name:"Haiti"},
-      {name:"India",aliases:["bharat"]},
-      {name:"Belgium"},
-      {name:"Japan"},
-      {name:"Sri Lanka",aliases:["ceylon"]},
-      {name:"Philippines"},
-      {name:"Burundi"},
-      {name:"Vietnam",aliases:["viet nam"]},
-      {name:"Pakistan"},
-      {name:"El Salvador"},
-      {name:"Trinidad and Tobago",aliases:["trinidad","tobago"]},
-      {name:"Guatemala"},
-      {name:"Uganda"},
-      {name:"United Kingdom",aliases:["uk","britain"]},
-      {name:"Germany"},
-      {name:"Togo"},
-      {name:"Italy"},
-      {name:"Thailand"},
-      {name:"Malawi"},
-      {name:"Switzerland"},
-      {name:"North Korea",aliases:["dprk","democratic peoples republic of korea"]},
-      {name:"Poland"},
-      {name:"China",aliases:["prc"]},
-      {name:"Czech Republic",aliases:["czechia"]},
-      {name:"Moldova"},
-      {name:"Indonesia"},
-      {name:"Portugal"},
-      {name:"Cuba"},
-      {name:"France"},
-      {name:"Sierra Leone"},
-      {name:"Nigeria"},
-      {name:"Ethiopia"},
-      {name:"Austria"},
-      {name:"Ghana"},
-      {name:"Romania"}
-    ]
-  },
-  {
-    id:"usstates", name:"US States by Population", emoji:"🇺🇸",
-    metric:"State population, 2023 US Census estimates",
-    tip:"💡 CA, TX, FL grab points 1-3. Wyoming (rank 51) is the jackpot — worth 51 pts!",
-    items:[
-      {name:"California",aliases:["ca"]},
-      {name:"Texas",aliases:["tx"]},
-      {name:"Florida",aliases:["fl"]},
-      {name:"New York",aliases:["ny"]},
-      {name:"Pennsylvania",aliases:["pa"]},
-      {name:"Illinois",aliases:["il"]},
-      {name:"Ohio",aliases:["oh"]},
-      {name:"Georgia",aliases:["ga"]},
-      {name:"North Carolina",aliases:["nc"]},
-      {name:"Michigan",aliases:["mi"]},
-      {name:"New Jersey",aliases:["nj"]},
-      {name:"Virginia",aliases:["va"]},
-      {name:"Washington",aliases:["wa","washington state"]},
-      {name:"Arizona",aliases:["az"]},
-      {name:"Massachusetts",aliases:["ma"]},
-      {name:"Tennessee",aliases:["tn"]},
-      {name:"Indiana",aliases:["in"]},
-      {name:"Missouri",aliases:["mo"]},
-      {name:"Maryland",aliases:["md"]},
-      {name:"Wisconsin",aliases:["wi"]},
-      {name:"Colorado",aliases:["co"]},
-      {name:"Minnesota",aliases:["mn"]},
-      {name:"South Carolina",aliases:["sc"]},
-      {name:"Alabama",aliases:["al"]},
-      {name:"Louisiana",aliases:["la"]},
-      {name:"Kentucky",aliases:["ky"]},
-      {name:"Oregon",aliases:["or"]},
-      {name:"Oklahoma",aliases:["ok"]},
-      {name:"Connecticut",aliases:["ct"]},
-      {name:"Utah",aliases:["ut"]},
-      {name:"Iowa",aliases:["ia"]},
-      {name:"Nevada",aliases:["nv"]},
-      {name:"Arkansas",aliases:["ar"]},
-      {name:"Mississippi",aliases:["ms"]},
-      {name:"Kansas",aliases:["ks"]},
-      {name:"New Mexico",aliases:["nm"]},
-      {name:"Nebraska",aliases:["ne"]},
-      {name:"Idaho",aliases:["id"]},
-      {name:"West Virginia",aliases:["wv"]},
-      {name:"Hawaii",aliases:["hi"]},
-      {name:"New Hampshire",aliases:["nh"]},
-      {name:"Maine",aliases:["me"]},
-      {name:"Montana",aliases:["mt"]},
-      {name:"Rhode Island",aliases:["ri"]},
-      {name:"Delaware",aliases:["de"]},
-      {name:"South Dakota",aliases:["sd"]},
-      {name:"North Dakota",aliases:["nd"]},
-      {name:"Alaska",aliases:["ak"]},
-      {name:"DC",aliases:["washington dc","district of columbia"]},
-      {name:"Vermont",aliases:["vt"]},
-      {name:"Wyoming",aliases:["wy"]}
-    ]
-  },
-  {
-    id:"tennis", name:"Men's Grand Slam Winners", emoji:"🎾",
-    metric:"Total Grand Slam singles titles, Open Era",
-    tip:"💡 Djokovic leads with 24, but the deeper list has players most fans forget.",
-    items:[
-      {name:"Novak Djokovic",aliases:["djokovic","nole"]},
-      {name:"Rafael Nadal",aliases:["nadal","rafa"]},
-      {name:"Roger Federer",aliases:["federer"]},
-      {name:"Pete Sampras",aliases:["sampras"]},
-      {name:"Carlos Alcaraz",aliases:["alcaraz"]},
-      {name:"Bjorn Borg",aliases:["borg","björn borg"]},
-      {name:"Rod Laver",aliases:["laver"]},
-      {name:"Andre Agassi",aliases:["agassi"]},
-      {name:"Jimmy Connors",aliases:["connors"]},
-      {name:"Ivan Lendl",aliases:["lendl"]},
-      {name:"John McEnroe",aliases:["mcenroe"]},
-      {name:"Stefan Edberg",aliases:["edberg"]},
-      {name:"Boris Becker",aliases:["becker"]},
-      {name:"Jim Courier",aliases:["courier"]},
-      {name:"Mats Wilander",aliases:["wilander"]},
-      {name:"Ken Rosewall",aliases:["rosewall"]},
-      {name:"John Newcombe",aliases:["newcombe"]},
-      {name:"Stan Wawrinka",aliases:["wawrinka"]},
-      {name:"Lleyton Hewitt",aliases:["hewitt"]},
-      {name:"Gustavo Kuerten",aliases:["kuerten","guga"]},
-      {name:"Marat Safin",aliases:["safin"]},
-      {name:"Juan Carlos Ferrero",aliases:["ferrero"]},
-      {name:"Thomas Muster",aliases:["muster"]},
-      {name:"Andy Murray",aliases:["murray"]},
-      {name:"Ilie Nastase",aliases:["nastase"]}
-    ]
-  },
-  {
-    id:"uscities", name:"US Cities by Population", emoji:"🏙️",
-    metric:"City proper population, 2023 US Census",
-    tip:"💡 NYC is #1. Cities in the 20s–30s trip most people up — think Mesa, Omaha, Raleigh.",
-    items:[
-      {name:"New York City",aliases:["new york","nyc"]},
-      {name:"Los Angeles",aliases:["la"]},
-      {name:"Chicago"},
-      {name:"Houston"},
-      {name:"Phoenix"},
-      {name:"Philadelphia",aliases:["philly"]},
-      {name:"San Antonio"},
-      {name:"San Diego"},
-      {name:"Dallas"},
-      {name:"Jacksonville"},
-      {name:"Austin"},
-      {name:"Fort Worth"},
-      {name:"Columbus"},
-      {name:"Charlotte"},
-      {name:"Indianapolis",aliases:["indy"]},
-      {name:"San Francisco",aliases:["sf"]},
-      {name:"Seattle"},
-      {name:"Denver"},
-      {name:"Nashville"},
-      {name:"Oklahoma City",aliases:["okc"]},
-      {name:"El Paso"},
-      {name:"Washington DC",aliases:["dc","washington","district of columbia"]},
-      {name:"Las Vegas"},
-      {name:"Louisville"},
-      {name:"Memphis"},
-      {name:"Portland"},
-      {name:"Baltimore"},
-      {name:"Milwaukee"},
-      {name:"Albuquerque"},
-      {name:"Tucson"},
-      {name:"Fresno"},
-      {name:"Sacramento"},
-      {name:"Mesa"},
-      {name:"Omaha"},
-      {name:"Atlanta"},
-      {name:"Colorado Springs"},
-      {name:"Virginia Beach"},
-      {name:"Raleigh"},
-      {name:"Minneapolis"},
-      {name:"Tampa"}
-    ]
-  }
+const CATEGORIES=[
+  {id:"pop",       name:"Countries by Population",        emoji:"🌍",file:"data/countries_population.csv", metric:"Total population, 2024 estimates",                   tip:"💡 Everyone guesses India & China. Try Kyrgyzstan (rank 86) or Burundi (rank 74)."},
+  {id:"area",      name:"Countries by Land Area",          emoji:"🗺️",file:"data/countries_area.csv",        metric:"Total land area in km², 2024",                       tip:"💡 Russia is #1 at 17M km². Mauritania, Papua New Guinea and Guyana are sneaky entries."},
+  {id:"gdp",       name:"Countries by GDP",                emoji:"💰",file:"data/countries_gdp.csv",         metric:"Nominal GDP (USD), 2024 IMF estimates",              tip:"💡 India beats UK at #5. Panama, Dominican Republic and Senegal are bottom-list bombs."},
+  {id:"mktcap",    name:"Companies by Market Cap",         emoji:"📈",file:"data/companies_marketcap.csv",   metric:"Market capitalisation, publicly listed, early 2025", tip:"💡 NVIDIA surged to #2. SAP, Palantir, Linde, Inditex are sneaky high-scorers."},
+  {id:"height",    name:"Countries by Avg. Male Height",   emoji:"📏",file:"data/countries_height.csv",      metric:"Average adult male height, cm (NCD-RisC)",           tip:"💡 Netherlands #1 at ~183cm. Balkans dominate — Montenegro, Bosnia, Serbia all top 5."},
+  {id:"lifeexp",   name:"Countries by Life Expectancy",    emoji:"🌿",file:"data/countries_lifeexp.csv",     metric:"Life expectancy at birth, WHO 2024",                 tip:"💡 Monaco leads. Chad, Angola, Lesotho sit at the very bottom — high-point traps."},
+  {id:"density",   name:"Countries by Pop. Density",       emoji:"🔢",file:"data/countries_density.csv",     metric:"People per km², 2024 (excl. micro-states)",          tip:"💡 Bangladesh #1. Rwanda at #4 and Lebanon at #3 surprise nearly everyone."},
+  {id:"usstates",  name:"US States by Population",         emoji:"🇺🇸",file:"data/us_states_population.csv",  metric:"State population, 2023 US Census estimates",        tip:"💡 Wyoming (rank 51) = 51 pts. DC at rank 49 trips people up."},
+  {id:"tennis",    name:"Men's Grand Slam Winners",        emoji:"🎾",file:"data/tennis_grandslams.csv",     metric:"Total Grand Slam singles titles, Open Era",          tip:"💡 Djokovic leads with 24. Panatta, Noah, and Chang are deep-list gems."},
+  {id:"uscities",  name:"US Cities by Population",         emoji:"🏙️",file:"data/us_cities_population.csv",  metric:"City proper population, 2023 US Census",            tip:"💡 NYC is #1. Mesa, Omaha, Laredo, Hialeah — the 40s–80s are brutal."},
+  {id:"actors",    name:"Actors by IMDB Film Count",       emoji:"🎬",file:"data/actors_movies.csv",         metric:"Number of feature film credits on IMDB",             tip:"💡 Danny Trejo has 400+ credits. Eric Roberts and Christopher Lee crack the top 5."},
 ];
 
-// ── STATE ──
-let gs = { category:null, roundsUsed:0, maxRounds:20, score:0, found:[], missed:[], guessedNames:new Set() };
+const csvCache={};
+async function fetchCSV(file){
+  if(csvCache[file])return csvCache[file];
+  const r=await fetch(file);
+  if(!r.ok)throw new Error(`HTTP ${r.status} for ${file}`);
+  const txt=await r.text();
+  const items=parseCSV(txt);
+  csvCache[file]=items;
+  return items;
+}
+function parseCSV(txt){
+  const lines=txt.split('\n').map(l=>l.trim()).filter(Boolean);
+  if(!lines.length)return[];
+  const start=lines[0].toLowerCase().startsWith('name')?1:0;
+  return lines.slice(start).map(line=>{
+    const ci=line.indexOf(',');
+    const name=ci===-1?line.trim():line.slice(0,ci).trim();
+    const aliasStr=ci===-1?'':line.slice(ci+1).trim();
+    const aliases=aliasStr?aliasStr.split('|').map(a=>a.trim()).filter(Boolean):[];
+    return name?{name,aliases}:null;
+  }).filter(Boolean);
+}
 
-// ── NAV ──
-function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
-function showTitle() { showScreen('screen-title'); }
-function showCategories() { buildCategoryGrid(); showScreen('screen-categories'); }
+let infiniteMode=false;
+function toggleInfinite(){
+  infiniteMode=!infiniteMode;
+  document.getElementById('infinite-label').classList.toggle('active',infiniteMode);
+  document.getElementById('rounds-input').disabled=infiniteMode;
+  updateRoundsPreview();
+}
+function updateRoundsPreview(){
+  const p=document.getElementById('rounds-preview');
+  if(infiniteMode){p.innerHTML='<strong>∞</strong> rounds';return;}
+  const v=Math.min(100,Math.max(1,parseInt(document.getElementById('rounds-input').value)||20));
+  p.innerHTML=`<strong>${v}</strong> round${v===1?'':'s'}`;
+}
+function getRoundsConfig(){
+  if(infiniteMode)return Infinity;
+  return Math.min(100,Math.max(1,parseInt(document.getElementById('rounds-input').value)||20));
+}
 
-function buildCategoryGrid() {
-  const grid = document.getElementById('categories-grid');
-  grid.innerHTML = '';
-  CATEGORIES.forEach(cat => {
-    const card = document.createElement('div');
-    card.className = 'cat-card';
-    card.innerHTML = `<span class="cat-count">TOP ${cat.items.length}</span><span class="cat-emoji">${cat.emoji}</span><div class="cat-name">${cat.name}</div><div class="cat-meta">${cat.metric}</div>`;
-    card.addEventListener('click', () => startGame(cat));
-    grid.appendChild(card);
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function showTitle(){showScreen('screen-title');}
+function showCategories(){buildGrid();showScreen('screen-categories');}
+
+function buildGrid(){
+  const g=document.getElementById('categories-grid');
+  g.innerHTML='';
+  CATEGORIES.forEach(cat=>{
+    const card=document.createElement('div');
+    card.className='cat-card';
+    const count=csvCache[cat.file]?`TOP ${csvCache[cat.file].length}`:'TOP ?';
+    card.innerHTML=`<span class="cat-count" id="cnt-${cat.id}">${count}</span><span class="cat-emoji">${cat.emoji}</span><div class="cat-name">${cat.name}</div><div class="cat-meta">${cat.metric}</div>`;
+    card.addEventListener('click',()=>loadAndStart(cat));
+    g.appendChild(card);
   });
 }
 
-// ── START ──
-function startGame(cat) {
-  gs = { category:cat, roundsUsed:0, maxRounds:20, score:0, found:[], missed:[], guessedNames:new Set() };
-  document.getElementById('header-cat-name').textContent = cat.name;
-  document.getElementById('header-round').textContent = '1';
-  document.getElementById('header-score').textContent = '0';
-  document.getElementById('sidebar-meta').innerHTML = `<strong>${cat.emoji} ${cat.name}</strong><br>${cat.metric}`;
-  document.getElementById('sidebar-tip').innerHTML = cat.tip;
-  document.getElementById('found-list').innerHTML = '';
-  document.getElementById('found-section').style.display = 'none';
-  document.getElementById('missed-list').innerHTML = '';
-  document.getElementById('missed-section').style.display = 'none';
-  const fb = document.getElementById('feedback'); fb.className = 'feedback'; fb.textContent = '';
-  buildRoundsBar(); updateProgress();
+async function loadAndStart(cat){
+  const ov=document.getElementById('load-overlay');
+  document.getElementById('load-text').textContent=`Loading ${cat.name}…`;
+  ov.classList.add('visible');
+  try{
+    const items=await fetchCSV(cat.file);
+    const el=document.getElementById(`cnt-${cat.id}`);
+    if(el)el.textContent=`TOP ${items.length}`;
+    if(!items.length)throw new Error('Empty dataset');
+    ov.classList.remove('visible');
+    startGame(cat,items);
+  }catch(e){
+    ov.classList.remove('visible');
+    alert(`Could not load category data.\n\nNote: This game must be served from a web server (not opened as a local file).\n\nFor local testing, run:\n  python -m http.server\nin the game folder, then open http://localhost:8000\n\nError: ${e.message}`);
+  }
+}
+
+let gs={};
+function startGame(cat,items){
+  const maxRounds=getRoundsConfig();
+  gs={category:cat,items,roundsUsed:0,maxRounds,infinite:maxRounds===Infinity,score:0,found:[],missed:[],guessedNames:new Set()};
+  document.getElementById('header-cat-name').textContent=cat.name;
+  document.getElementById('header-round').textContent='1';
+  document.getElementById('header-maxround').textContent=gs.infinite?'∞':maxRounds;
+  const rb=document.getElementById('rounds-badge'),ib=document.getElementById('infinite-badge');
+  if(gs.infinite){rb.style.display='none';ib.style.display='flex';}
+  else{rb.style.display='';ib.style.display='none';}
+  document.getElementById('header-score').textContent='0';
+  document.getElementById('sidebar-meta').innerHTML=`<strong>${cat.emoji} ${cat.name}</strong><br>${cat.metric}`;
+  document.getElementById('sidebar-tip').innerHTML=cat.tip;
+  document.getElementById('found-list').innerHTML='';
+  document.getElementById('found-section').style.display='none';
+  document.getElementById('missed-list').innerHTML='';
+  document.getElementById('missed-section').style.display='none';
+  const fb=document.getElementById('feedback');fb.className='feedback';fb.innerHTML='';
+  buildRoundsBar();updateProgress();
   showScreen('screen-game');
-  document.getElementById('guess-input').value = '';
+  document.getElementById('guess-input').value='';
   document.getElementById('guess-input').focus();
 }
 
-function buildRoundsBar() {
-  const bar = document.getElementById('rounds-bar');
-  bar.innerHTML = '';
-  for (let i=0;i<gs.maxRounds;i++) { const p=document.createElement('div'); p.className='round-pip'; p.id=`pip-${i}`; bar.appendChild(p); }
-  document.getElementById('rounds-label').textContent = `0 / ${gs.maxRounds} used`;
+function buildRoundsBar(){
+  const bw=document.getElementById('rounds-bar-wrap'),iw=document.getElementById('inf-counter-wrap'),bar=document.getElementById('rounds-bar');
+  if(gs.infinite){bw.style.display='none';iw.style.display='block';document.getElementById('inf-counter').textContent='0';}
+  else{bw.style.display='block';iw.style.display='none';bar.innerHTML='';for(let i=0;i<gs.maxRounds;i++){const p=document.createElement('div');p.className='round-pip';p.id=`pip-${i}`;bar.appendChild(p);}}
+  document.getElementById('rounds-label').textContent='0 used';
 }
 
-// ── MATCHING ──
-function normalize(s) {
+function norm(s){
   return s.toLowerCase().trim()
     .replace(/[àáâãä]/g,'a').replace(/[èéêë]/g,'e').replace(/[ìíîï]/g,'i')
-    .replace(/[òóôõö]/g,'o').replace(/[ùúûü]/g,'u').replace(/[ý]/g,'y')
-    .replace(/[ñ]/g,'n').replace(/[ç]/g,'c').replace(/[ß]/g,'ss')
-    .replace(/[''']/g,"'").replace(/[^a-z0-9\s'&]/g,'').replace(/\s+/g,' ').trim();
+    .replace(/[òóôõö]/g,'o').replace(/[ùúûü]/g,'u').replace(/[ñ]/g,'n')
+    .replace(/[çć]/g,'c').replace(/[ß]/g,'ss').replace(/[ý]/g,'y')
+    .replace(/[''']/g,"'").replace(/[^a-z0-9\s'&.]/g,'').replace(/\s+/g,' ').trim();
 }
-
-function findMatch(input) {
-  const ni = normalize(input);
-  if (!ni) return null;
-  for (let i=0;i<gs.category.items.length;i++) {
-    const item = gs.category.items[i];
-    if (ni === normalize(item.name)) return { rank:i+1, name:item.name };
-    if (item.aliases) for (const a of item.aliases) if (ni === normalize(a)) return { rank:i+1, name:item.name };
+function findMatch(input){
+  const ni=norm(input);if(!ni)return null;
+  for(let i=0;i<gs.items.length;i++){
+    const item=gs.items[i];
+    if(ni===norm(item.name))return{rank:i+1,name:item.name};
+    if(item.aliases)for(const a of item.aliases)if(ni===norm(a))return{rank:i+1,name:item.name};
   }
   return null;
 }
 
-// ── GUESS ──
-function submitGuess() {
-  if (gs.roundsUsed >= gs.maxRounds) return;
-  const input = document.getElementById('guess-input');
-  const raw = input.value.trim();
-  if (!raw) return;
-  input.value = '';
-  const fb = document.getElementById('feedback');
-  const match = findMatch(raw);
-
-  if (match) {
-    const normKey = normalize(match.name);
-    if (gs.guessedNames.has(normKey)) {
-      fb.className = 'feedback dupe';
-      fb.innerHTML = `<span>⚠️ Already found <strong>${match.name}</strong> (rank #${match.rank})!</span>`;
+function submitGuess(){
+  if(!gs.infinite&&gs.roundsUsed>=gs.maxRounds)return;
+  const inp=document.getElementById('guess-input');
+  const raw=inp.value.trim();if(!raw)return;inp.value='';
+  const fb=document.getElementById('feedback');
+  const match=findMatch(raw);
+  if(match){
+    const nk=norm(match.name);
+    if(gs.guessedNames.has(nk)){
+      fb.className='feedback dupe';
+      fb.innerHTML=`<span>⚠️ Already found <strong>${match.name}</strong> (rank #${match.rank})!</span>`;
       useRound('used');
-    } else {
-      gs.guessedNames.add(normKey);
-      const pts = match.rank;
-      gs.score += pts;
-      gs.found.push({ rank:match.rank, name:match.name, points:pts });
-      fb.className = 'feedback correct';
-      fb.innerHTML = `<span>✓ <strong>${match.name}</strong> — Rank #${match.rank}!</span><span class="feedback-rank">+${pts} pts</span>`;
-      document.getElementById('header-score').textContent = gs.score.toLocaleString();
-      rebuildFoundList(); updateProgress();
-      useRound('correct');
+    }else{
+      gs.guessedNames.add(nk);
+      const pts=match.rank;gs.score+=pts;
+      gs.found.push({rank:match.rank,name:match.name,points:pts});
+      fb.className='feedback correct';
+      fb.innerHTML=`<span>✓ <strong>${match.name}</strong> — Rank #${match.rank}!</span><span class="feedback-rank">+${pts} pts</span>`;
+      document.getElementById('header-score').textContent=gs.score.toLocaleString();
+      rebuildFound();updateProgress();useRound('correct');
     }
-  } else {
+  }else{
     gs.missed.push(raw);
-    fb.className = 'feedback wrong';
-    fb.innerHTML = `<span>✗ "<em>${raw}</em>" — not in the list. Round wasted!</span>`;
-    rebuildMissedList();
-    useRound('used');
+    fb.className='feedback wrong';
+    fb.innerHTML=`<span>✗ "<em>${raw}</em>" — not in the list.</span>`;
+    rebuildMissed();useRound('used');
   }
-  input.focus();
-  if (gs.found.length === gs.category.items.length) { setTimeout(()=>endGame(false,true),700); return; }
-  if (gs.roundsUsed >= gs.maxRounds) setTimeout(()=>endGame(false),700);
+  inp.focus();
+  if(gs.found.length===gs.items.length){setTimeout(()=>endGame(false,true),600);return;}
+  if(!gs.infinite&&gs.roundsUsed>=gs.maxRounds)setTimeout(()=>endGame(false),600);
 }
 
-function useRound(type) {
-  const pip = document.getElementById(`pip-${gs.roundsUsed}`);
-  if (pip) pip.classList.add(type);
+function useRound(type){
+  if(!gs.infinite){const p=document.getElementById(`pip-${gs.roundsUsed}`);if(p)p.classList.add(type);}
   gs.roundsUsed++;
-  document.getElementById('header-round').textContent = Math.min(gs.roundsUsed+1, gs.maxRounds);
-  document.getElementById('rounds-label').textContent = `${gs.roundsUsed} / ${gs.maxRounds} used`;
+  if(gs.infinite)document.getElementById('inf-counter').textContent=gs.roundsUsed;
+  const next=gs.infinite?gs.roundsUsed+1:Math.min(gs.roundsUsed+1,gs.maxRounds);
+  document.getElementById('header-round').textContent=next;
+  document.getElementById('rounds-label').textContent=`${gs.roundsUsed} used`;
 }
 
-function rebuildFoundList() {
-  const list = document.getElementById('found-list');
-  list.innerHTML = '';
-  const sorted = [...gs.found].sort((a,b)=>b.points-a.points);
-  sorted.forEach(item=>{
-    const el=document.createElement('div'); el.className='found-item';
+function rebuildFound(){
+  const list=document.getElementById('found-list');list.innerHTML='';
+  [...gs.found].sort((a,b)=>b.points-a.points).forEach(item=>{
+    const el=document.createElement('div');el.className='found-item';
     el.innerHTML=`<span class="found-rank">#${item.rank}</span><span class="found-name">${item.name}</span><span class="found-pts">+${item.points}</span>`;
     list.appendChild(el);
   });
   document.getElementById('found-section').style.display='block';
 }
 
-function rebuildMissedList() {
-  const list=document.getElementById('missed-list'); list.innerHTML='';
-  gs.missed.forEach(m=>{ const p=document.createElement('span'); p.className='missed-pill'; p.textContent=m; list.appendChild(p); });
+function rebuildMissed(){
+  const list=document.getElementById('missed-list');list.innerHTML='';
+  gs.missed.forEach(m=>{const p=document.createElement('span');p.className='missed-pill';p.textContent=m;list.appendChild(p);});
   document.getElementById('missed-section').style.display='block';
 }
 
-function updateProgress() {
-  const found=gs.found.length, total=gs.category.items.length;
-  document.getElementById('progress-label').textContent=`${found} / ${total} found`;
-  document.getElementById('progress-bar').style.width=(found/total*100)+'%';
+function updateProgress(){
+  const f=gs.found.length,t=gs.items.length;
+  document.getElementById('progress-label').textContent=`${f} / ${t} found`;
+  document.getElementById('progress-bar').style.width=(f/t*100)+'%';
 }
 
-let missedExpanded=true;
-function toggleMissed() {
-  missedExpanded=!missedExpanded;
-  document.getElementById('missed-list').classList.toggle('collapsed',!missedExpanded);
-  document.getElementById('missed-arrow').textContent=missedExpanded?'▼':'▶';
+let missedExp=true;
+function toggleMissed(){
+  missedExp=!missedExp;
+  document.getElementById('missed-list').classList.toggle('collapsed',!missedExp);
+  document.getElementById('missed-arrow').textContent=missedExp?'▼':'▶';
 }
 
-// ── END GAME ──
-function endGame(manual=false, allFound=false) {
-  const cat=gs.category, found=gs.found, score=gs.score;
+function endGame(manual=false,allFound=false){
+  const{items,found,score,maxRounds,infinite,roundsUsed}=gs;
   document.getElementById('results-score').textContent=score.toLocaleString();
-  const total=cat.items.length, maxPossible=(total*(total+1))/2, pct=score/maxPossible*100;
-  let verdict='';
-  if (allFound) verdict=`🏆 <strong>PERFECT GAME!</strong> You found all ${total} items!`;
-  else if (pct>60) verdict=`🔥 <strong>Elite level.</strong> You found ${found.length} of ${total} items.`;
-  else if (pct>30) verdict=`⭐ <strong>Solid performance.</strong> ${found.length} of ${total} items found.`;
-  else if (found.length>0) verdict=`📚 <strong>Learning curve.</strong> ${found.length} of ${total} — keep studying!`;
-  else verdict=`😬 <strong>Tough start.</strong> 0 from ${total}. Better luck next round!`;
-  document.getElementById('results-verdict').innerHTML=verdict;
-
-  const breakdown=document.getElementById('results-breakdown');
-  breakdown.innerHTML=`<div class="breakdown-header"><span>Rank / Item</span><span>Points</span></div>`;
-  const foundRanks=new Set(found.map(f=>f.rank));
-  cat.items.forEach((item,i)=>{
-    const rank=i+1, isHit=foundRanks.has(rank);
-    const el=document.createElement('div'); el.className=`breakdown-item ${isHit?'hit':'miss'}`;
-    el.innerHTML=`<span class="breakdown-rank">#${rank}</span><span class="breakdown-name">${item.name}${!isHit?'<span class="missed-tag">not guessed</span>':''}</span><span class="breakdown-pts">${isHit?'+'+rank:'—'}</span>`;
-    breakdown.appendChild(el);
+  const total=items.length,max=(total*(total+1))/2,pct=score/max*100;
+  const rword=infinite?`${roundsUsed} guess${roundsUsed===1?'':'es'}`:`${maxRounds} round${maxRounds===1?'':'s'}`;
+  let v='';
+  if(allFound)v=`🏆 <strong>PERFECT GAME!</strong> You found all ${total} items!`;
+  else if(pct>60)v=`🔥 <strong>Elite level.</strong> ${found.length}/${total} found in ${rword}.`;
+  else if(pct>30)v=`⭐ <strong>Solid performance.</strong> ${found.length}/${total} found.`;
+  else if(found.length>0)v=`📚 <strong>Learning curve.</strong> ${found.length}/${total} — keep studying!`;
+  else v=`😬 <strong>Tough start.</strong> 0 from ${total}. Better luck next round!`;
+  document.getElementById('results-verdict').innerHTML=v;
+  const bd=document.getElementById('results-breakdown');
+  bd.innerHTML='<div class="breakdown-header"><span>Rank / Item</span><span>Pts</span></div>';
+  const fr=new Set(found.map(f=>f.rank));
+  items.forEach((item,i)=>{
+    const rank=i+1,isHit=fr.has(rank);
+    const el=document.createElement('div');el.className=`breakdown-item ${isHit?'hit':'miss'}`;
+    el.innerHTML=`<span class="breakdown-rank">#${rank}</span><span class="breakdown-name">${item.name}${!isHit?'<span class="missed-tag">missed</span>':''}</span><span class="breakdown-pts">${isHit?'+'+rank:'—'}</span>`;
+    bd.appendChild(el);
   });
   showScreen('screen-results');
-  if (allFound||pct>40) launchConfetti();
+  if(allFound||pct>40)launchConfetti();
 }
 
-// ── CONFETTI ──
-function launchConfetti() {
+function launchConfetti(){
   const c=document.getElementById('confetti-container');
-  const colors=['#f5e642','#ff4d6d','#39d98a','#a78bfa','#ff9f1c','#ffffff'];
-  for (let i=0;i<80;i++) {
-    const p=document.createElement('div'); p.className='confetti-piece';
-    p.style.cssText=`left:${Math.random()*100}%;background:${colors[~~(Math.random()*colors.length)]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;`;
-    c.appendChild(p);
-  }
+  const cols=['#f5e642','#ff4d6d','#39d98a','#a78bfa','#ff9f1c','#ffffff'];
+  for(let i=0;i<80;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.cssText=`left:${Math.random()*100}%;background:${cols[~~(Math.random()*cols.length)]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;`;c.appendChild(p);}
   setTimeout(()=>{c.innerHTML='';},3500);
 }
 
-document.getElementById('guess-input').addEventListener('keydown',e=>{ if(e.key==='Enter') submitGuess(); });
-buildCategoryGrid();
+document.getElementById('guess-input').addEventListener('keydown',e=>{if(e.key==='Enter')submitGuess();});
+buildGrid();
 </script>
 </body>
 </html>
