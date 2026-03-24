@@ -1268,7 +1268,7 @@
         p.innerHTML = `<strong>${v}</strong> round${v === 1 ? '' : 's'}`
       }
       function getRoundsConfig() {
-        if (infiniteMode) return Infinity
+        if (infiniteMode) return 10000
         return Math.min(
           100,
           Math.max(
