@@ -54,8 +54,8 @@ npx serve .
      emoji: "🎯",
      file: "data/my_category.csv",
      metric: "Short description of the metric",
-     valueLabel: "Something like Population"
-     valueFmt: "population/number/decimal/"
+     valueLabel: "Something like Population",
+     valueFmt: "population/number/decimal/",
      tip: "A hint for players about what's surprising in this list."
    }
    ```
