@@ -1,0 +1,201 @@
+rank,name,metric,value
+1,World,population,8141808945
+2,IDA & IBRD total,population,6926222113
+3,Low & middle income,population,6563501708
+4,Middle income,population,5938893610
+5,IBRD only,population,4979421568
+6,Early-demographic dividend,population,3552278604
+7,Lower middle income,population,3120980912
+8,Upper middle income,population,2817912698
+9,East Asia & Pacific,population,2388319494
+10,Late-demographic dividend,population,2328628339
+11,East Asia & Pacific (excluding high income),population,2141122258
+12,East Asia & Pacific (IDA & IBRD countries),population,2114653077
+13,IDA total,population,1946800545
+14,South Asia,population,1677384532
+15,South Asia (IDA & IBRD),population,1677384532
+16,India,population,1450935791
+17,High income,population,1417841927
+18,China,population,1408975000
+19,OECD members,population,1396877448
+20,Sub-Saharan Africa (IDA & IBRD countries),population,1291044964
+21,Sub-Saharan Africa,population,1291044964
+22,IDA only,population,1269842894
+23,Least developed countries: UN classification,population,1187777591
+24,Sub-Saharan Africa (excluding high income),population,1158863843
+25,Post-demographic dividend,population,1128377826
+26,Pre-demographic dividend,population,1105951788
+27,Fragile and conflict affected situations,population,1081767572
+28,Heavily indebted poor countries (HIPC),population,941413026
+29,Europe & Central Asia,population,928263208
+30,"Middle East, North Africa, Afghanistan & Pakistan",population,813146136
+31,Africa Eastern and Southern,population,769280888
+32,"Middle East, North Africa, Afghanistan & Pakistan (excluding high income)",population,741690916
+33,"Middle East, North Africa, Afghanistan & Pakistan (IDA & IBRD)",population,736401764
+34,IDA blend,population,676957651
+35,Latin America & Caribbean,population,662186388
+36,Latin America & the Caribbean (IDA & IBRD countries),population,647003746
+37,Low income,population,624608098
+38,Latin America & Caribbean (excluding high income),population,594158638
+39,Africa Western and Central,population,521764076
+40,Arab World,population,492612632
+41,Europe & Central Asia (IDA & IBRD countries),population,459734030
+42,European Union,population,450228188
+43,North America,population,381464223
+44,Euro area,population,351161936
+45,United States,population,340110988
+46,Indonesia,population,283487931
+47,Pakistan,population,251269164
+48,Europe & Central Asia (excluding high income),population,250281521
+49,Nigeria,population,232679478
+50,Brazil,population,211998573
+51,Bangladesh,population,173562364
+52,Russian Federation,population,143533851
+53,Ethiopia,population,132059767
+54,Mexico,population,130861007
+55,Japan,population,123975371
+56,"Egypt, Arab Rep.",population,116538258
+57,Philippines,population,115843670
+58,"Congo, Dem. Rep.",population,109276265
+59,Viet Nam,population,100987686
+60,Central Europe and the Baltics,population,100061963
+61,"Iran, Islamic Rep.",population,91567738
+62,Turkiye,population,85518661
+63,Germany,population,83516593
+64,Thailand,population,71668011
+65,United Kingdom,population,69226000
+66,Tanzania,population,68560157
+67,France,population,68551653
+68,South Africa,population,64007187
+69,Italy,population,58952704
+70,Kenya,population,56432944
+71,Myanmar,population,54500091
+72,Colombia,population,52886363
+73,"Korea, Rep.",population,51751065
+74,Sudan,population,50448963
+75,Uganda,population,50015092
+76,Spain,population,48848840
+77,Algeria,population,46814308
+78,Iraq,population,46042015
+79,Argentina,population,45696159
+80,Afghanistan,population,42647492
+81,Canada,population,41288599
+82,"Yemen, Rep.",population,40583164
+83,Morocco,population,38081173
+84,Angola,population,37885849
+85,Ukraine,population,37860221
+86,Poland,population,36559233
+87,Uzbekistan,population,36361859
+88,Malaysia,population,35557673
+89,Saudi Arabia,population,35300280
+90,Mozambique,population,34631766
+91,Ghana,population,34427414
+92,Peru,population,34217848
+93,Madagascar,population,31964956
+94,Cote d'Ivoire,population,31934230
+95,Nepal,population,29651054
+96,Cameroon,population,29123744
+97,"Venezuela, RB",population,28405543
+98,Australia,population,27196812
+99,Niger,population,27032412
+100,"Korea, Dem. People's Rep.",population,26498823
+101,Syrian Arab Republic,population,24672760
+102,Mali,population,24478595
+103,Burkina Faso,population,23548781
+104,Sri Lanka,population,21916000
+105,Malawi,population,21655286
+106,Zambia,population,21314956
+107,Kazakhstan,population,20592571
+108,Chad,population,20299123
+109,Small states,population,20193405
+110,Chile,population,19764771
+111,Romania,population,19051804
+112,"Somalia, Fed. Rep.",population,19009151
+113,Senegal,population,18501984
+114,Guatemala,population,18406359
+115,Ecuador,population,18135478
+116,Netherlands,population,17993485
+117,Cambodia,population,17638801
+118,Zimbabwe,population,16634373
+119,Guinea,population,14754785
+120,Benin,population,14462724
+121,Rwanda,population,14256567
+122,Burundi,population,14047786
+123,Other small states,population,12931878
+124,Bolivia,population,12413315
+125,Tunisia,population,12277109
+126,South Sudan,population,11943408
+127,Belgium,population,11858610
+128,Haiti,population,11772557
+129,Jordan,population,11552876
+130,Dominican Republic,population,11427557
+131,United Arab Emirates,population,10986400
+132,Cuba,population,10979783
+133,Czechia,population,10905028
+134,Honduras,population,10825703
+135,Portugal,population,10694681
+136,Tajikistan,population,10590927
+137,Papua New Guinea,population,10576502
+138,Sweden,population,10569709
+139,Greece,population,10405134
+140,Azerbaijan,population,10202830
+141,Israel,population,9974400
+142,Hungary,population,9562065
+143,Togo,population,9515236
+144,Austria,population,9177982
+145,Belarus,population,9132629
+146,Switzerland,population,9005582
+147,Sierra Leone,population,8642022
+148,Lao PDR,population,7769819
+149,"Hong Kong SAR, China",population,7524100
+150,Turkmenistan,population,7494498
+151,Libya,population,7381023
+152,Kyrgyz Republic,population,7221868
+153,Paraguay,population,6929153
+154,Nicaragua,population,6916140
+155,Serbia,population,6586476
+156,Bulgaria,population,6441421
+157,El Salvador,population,6338193
+158,"Congo, Rep.",population,6332961
+159,Singapore,population,6036860
+160,Denmark,population,5976992
+161,Lebanon,population,5805962
+162,Finland,population,5619911
+163,Liberia,population,5612817
+164,Norway,population,5572279
+165,Slovak Republic,population,5422069
+166,Ireland,population,5395790
+167,Central African Republic,population,5330690
+168,West Bank and Gaza,population,5289152
+169,New Zealand,population,5287500
+170,Oman,population,5281538
+171,Mauritania,population,5169395
+172,Costa Rica,population,5129910
+173,Kuwait,population,4897263
+174,Caribbean small states,population,4539060
+175,Panama,population,4515577
+176,Croatia,population,3866200
+177,Georgia,population,3699557
+178,Eritrea,population,3535603
+179,Mongolia,population,3524788
+180,Uruguay,population,3386588
+181,Puerto Rico (US),population,3203295
+182,Bosnia and Herzegovina,population,3164253
+183,Armenia,population,3033500
+184,Namibia,population,3030131
+185,Lithuania,population,2888278
+186,Qatar,population,2857822
+187,Jamaica,population,2839175
+188,"Gambia, The",population,2759988
+189,Pacific island small states,population,2722467
+190,Gabon,population,2538952
+191,Botswana,population,2521139
+192,Moldova,population,2402306
+193,Albania,population,2377128
+194,Lesotho,population,2337423
+195,Guinea-Bissau,population,2201352
+196,Slovenia,population,2127400
+197,Equatorial Guinea,population,1892516
+198,Latvia,population,1866124
+199,North Macedonia,population,1824359
+200,Kosovo,population,1594353
