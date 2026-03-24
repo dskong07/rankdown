@@ -56,6 +56,8 @@
       .screen.active {
         display: flex;
       }
+
+      /* ── TITLE ── */
       #screen-title {
         gap: 24px;
         text-align: center;
@@ -173,6 +175,8 @@
         border-color: var(--text);
         color: var(--text);
       }
+
+      /* ── CATEGORIES ── */
       #screen-categories {
         gap: 22px;
         justify-content: flex-start;
@@ -194,6 +198,8 @@
         text-transform: uppercase;
         margin-top: 6px;
       }
+
+      /* rounds selector */
       .rounds-selector {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -306,6 +312,8 @@
         color: var(--accent);
         font-size: 14px;
       }
+
+      /* category grid */
       .categories-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -367,6 +375,8 @@
         padding: 3px 7px;
         border-radius: 4px;
       }
+
+      /* loading */
       .load-overlay {
         position: fixed;
         inset: 0;
@@ -400,6 +410,8 @@
         letter-spacing: 0.1em;
         font-family: var(--fm);
       }
+
+      /* ── GAME ── */
       #screen-game {
         justify-content: flex-start;
         padding-top: 0;
@@ -470,10 +482,11 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
       }
+
+      /* layout */
       .game-body {
         display: grid;
         grid-template-columns: 1fr 300px;
-        gap: 0;
         width: 100%;
         max-width: 1040px;
         margin: 0 auto;
@@ -494,6 +507,8 @@
         flex-direction: column;
         gap: 18px;
       }
+
+      /* input */
       .input-zone {
         background: var(--surface);
         border: 2px solid var(--border);
@@ -543,7 +558,6 @@
         padding: 12px 20px;
         font-family: var(--fd);
         font-size: 20px;
-        letter-spacing: 0.05em;
         cursor: pointer;
         transition: all 0.15s;
         white-space: nowrap;
@@ -551,6 +565,8 @@
       .btn-guess:hover {
         background: #fff;
       }
+
+      /* feedback */
       .feedback {
         padding: 12px 16px;
         border-radius: 8px;
@@ -589,11 +605,20 @@
         border: 1px solid rgba(167, 139, 250, 0.3);
         color: var(--rank-color);
       }
-      .feedback-rank {
+      .feedback-pts {
         font-family: var(--fd);
         font-size: 22px;
         margin-left: auto;
+        white-space: nowrap;
       }
+      .feedback-val {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: rgba(57, 217, 138, 0.7);
+        margin-top: 2px;
+      }
+
+      /* found list */
       .found-list {
         display: flex;
         flex-direction: column;
@@ -612,7 +637,8 @@
         border: 1px solid rgba(57, 217, 138, 0.2);
         border-radius: 8px;
         padding: 9px 14px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 36px 1fr auto auto;
         align-items: center;
         gap: 10px;
         animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -631,19 +657,25 @@
         font-family: var(--fm);
         font-size: 11px;
         color: var(--muted);
-        min-width: 32px;
       }
       .found-name {
         font-size: 14px;
         font-weight: 700;
-        flex: 1;
+      }
+      .found-val {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--muted);
+        text-align: right;
       }
       .found-pts {
         font-family: var(--fd);
         font-size: 20px;
         color: var(--correct);
-        letter-spacing: 0.05em;
+        text-align: right;
       }
+
+      /* sidebar */
       .game-sidebar {
         padding-left: 22px;
         border-left: 1px solid var(--border);
@@ -788,6 +820,8 @@
       .collapsed {
         display: none !important;
       }
+
+      /* ── RESULTS ── */
       #screen-results {
         gap: 26px;
         padding: 40px 20px;
@@ -816,7 +850,6 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         line-height: 1;
-        letter-spacing: 0.03em;
       }
       .score-verdict {
         font-size: 16px;
@@ -829,72 +862,83 @@
         color: var(--text);
         font-style: normal;
       }
-      .results-breakdown {
-        max-width: 600px;
+
+      /* results table */
+      .results-table {
+        max-width: 660px;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+        border-collapse: collapse;
       }
-      .breakdown-header {
-        display: flex;
-        justify-content: space-between;
-        font-size: 11px;
+      .results-table th {
+        font-family: var(--fm);
+        font-size: 10px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--muted);
         font-weight: 700;
-        padding: 0 16px 8px;
+        padding: 0 12px 10px;
+        text-align: left;
       }
-      .breakdown-item {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 10px 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+      .results-table th.r {
+        text-align: right;
       }
-      .breakdown-item.hit {
-        border-color: rgba(57, 217, 138, 0.25);
+      .results-table td {
+        padding: 7px 12px;
+        font-size: 13px;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
       }
-      .breakdown-item.miss {
-        opacity: 0.4;
+      .results-table tr.hit td {
+        background: rgba(57, 217, 138, 0.05);
       }
-      .breakdown-rank {
+      .results-table tr.hit td:first-child {
+        border-left: 2px solid var(--correct);
+      }
+      .results-table tr.miss {
+        opacity: 0.38;
+      }
+      .td-rank {
         font-family: var(--fm);
-        font-size: 10px;
+        font-size: 11px;
         color: var(--muted);
-        min-width: 36px;
+        width: 40px;
       }
-      .breakdown-name {
-        font-size: 14px;
-        flex: 1;
-        font-weight: 600;
+      .td-name {
+        font-weight: 700;
+      }
+      .td-val {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--muted);
+        text-align: right;
+      }
+      .td-pts {
+        font-family: var(--fd);
+        font-size: 19px;
+        text-align: right;
+        white-space: nowrap;
+      }
+      tr.hit .td-pts {
+        color: var(--correct);
+      }
+      tr.miss .td-pts {
+        color: var(--muted);
       }
       .missed-tag {
         font-size: 10px;
         color: var(--muted);
         font-style: italic;
-        margin-left: 4px;
+        margin-left: 6px;
+        font-weight: 400;
       }
-      .breakdown-pts {
-        font-family: var(--fd);
-        font-size: 20px;
-        letter-spacing: 0.05em;
-      }
-      .breakdown-item.hit .breakdown-pts {
-        color: var(--correct);
-      }
-      .breakdown-item.miss .breakdown-pts {
-        color: var(--muted);
-      }
+
       .results-actions {
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
         justify-content: center;
       }
+
+      /* confetti */
       .confetti-container {
         position: fixed;
         top: 0;
@@ -921,9 +965,10 @@
     </style>
   </head>
   <body>
+    <!-- ═══ TITLE ═══ -->
     <div id="screen-title" class="screen active">
       <div class="logo">Rankdown</div>
-      <div class="tagline">How good are you at estimating random bullshit?</div>
+      <div class="tagline">The Niche Knowledge Party Game</div>
       <div class="how-to-play">
         <h3>How to Play</h3>
         <ol>
@@ -957,8 +1002,8 @@
           </li>
         </ol>
         <div class="scoring-note">
-          Strategy: Don't waste guesses on the obvious #1. Hunt for the
-          obscure gold in the 40s–90s.
+          💡 Strategy: Don't waste guesses on #1. Hunt the obscure gold in the
+          40s–90s.
         </div>
       </div>
       <button class="btn btn-primary" onclick="showCategories()">
@@ -966,6 +1011,7 @@
       </button>
     </div>
 
+    <!-- ═══ CATEGORIES ═══ -->
     <div id="screen-categories" class="screen">
       <div class="screen-header">
         <div class="screen-title">Choose Your Category</div>
@@ -983,7 +1029,7 @@
               id="rounds-input"
               min="1"
               max="100"
-              value="10"
+              value="20"
               oninput="updateRoundsPreview()"
             />
           </div>
@@ -1005,6 +1051,7 @@
       <button class="btn btn-secondary" onclick="showTitle()">← Back</button>
     </div>
 
+    <!-- ═══ GAME ═══ -->
     <div id="screen-game" class="screen">
       <div class="game-header">
         <div class="game-header-left">
@@ -1096,13 +1143,24 @@
       </div>
     </div>
 
+    <!-- ═══ RESULTS ═══ -->
     <div id="screen-results" class="screen">
       <div class="results-hero">
         <div class="results-label">Final Score</div>
         <div class="results-score" id="results-score">0</div>
         <div class="score-verdict" id="results-verdict"></div>
       </div>
-      <div class="results-breakdown" id="results-breakdown"></div>
+      <table class="results-table" id="results-table">
+        <thead>
+          <tr>
+            <th style="width: 40px">#</th>
+            <th>Item</th>
+            <th class="r" id="results-val-header">Value</th>
+            <th class="r">Pts</th>
+          </tr>
+        </thead>
+        <tbody id="results-tbody"></tbody>
+      </table>
       <div class="results-actions">
         <button class="btn btn-primary" onclick="showCategories()">
           Play Again →
@@ -1118,6 +1176,9 @@
     <div class="confetti-container" id="confetti-container"></div>
 
     <script>
+      // ══════════════════════════════════════════════
+      //  CATEGORY REGISTRY
+      // ══════════════════════════════════════════════
       const CATEGORIES = [
         {
           id: 'pop',
@@ -1125,6 +1186,8 @@
           emoji: '🌍',
           file: 'data/countries_population.csv',
           metric: 'Total population, 2024 estimates',
+          valueLabel: 'Population',
+          valueFmt: 'population',
           tip: '💡 Everyone guesses India & China. Try Kyrgyzstan (rank 86) or Burundi (rank 74).'
         },
         {
@@ -1132,23 +1195,29 @@
           name: 'Countries by Land Area',
           emoji: '🗺️',
           file: 'data/countries_area.csv',
-          metric: 'Total land area in km², 2024',
-          tip: '💡 Russia is #1 at 17M km². Mauritania, Papua New Guinea and Guyana are sneaky entries.'
+          metric: 'Total land area, km²',
+          valueLabel: 'Area (km²)',
+          valueFmt: 'number',
+          tip: '💡 Russia #1 at 17M km². Most blank on Mauritania, Papua New Guinea, Guyana.'
         },
         {
           id: 'gdp',
           name: 'Countries by GDP',
           emoji: '💰',
           file: 'data/countries_gdp.csv',
-          metric: 'Nominal GDP (USD), 2024 IMF estimates',
-          tip: '💡 India beats UK at #5. Panama, Dominican Republic and Senegal are bottom-list bombs.'
+          metric: 'Nominal GDP, USD millions, IMF 2024',
+          valueLabel: 'GDP ($M USD)',
+          valueFmt: 'number',
+          tip: '💡 India beats the UK at #5. Panama, Dominican Republic, Senegal are deep bombs.'
         },
         {
           id: 'mktcap',
           name: 'Companies by Market Cap',
           emoji: '📈',
           file: 'data/companies_marketcap.csv',
-          metric: 'Market capitalisation, publicly listed, early 2025',
+          metric: 'Market capitalisation, $B USD, early 2025',
+          valueLabel: 'Mkt Cap ($B)',
+          valueFmt: 'decimal',
           tip: '💡 NVIDIA surged to #2. SAP, Palantir, Linde, Inditex are sneaky high-scorers.'
         },
         {
@@ -1157,15 +1226,19 @@
           emoji: '📏',
           file: 'data/countries_height.csv',
           metric: 'Average adult male height, cm (NCD-RisC)',
-          tip: '💡 Netherlands #1 at ~183cm. Balkans dominate — Montenegro, Bosnia, Serbia all top 5.'
+          valueLabel: 'Height (cm)',
+          valueFmt: 'decimal',
+          tip: '💡 Netherlands #1 at 182.9cm. Balkans dominate — Montenegro, Bosnia, Serbia top 3.'
         },
         {
           id: 'lifeexp',
           name: 'Countries by Life Expectancy',
           emoji: '🌿',
           file: 'data/countries_lifeexp.csv',
-          metric: 'Life expectancy at birth, WHO 2024',
-          tip: '💡 Monaco leads. Chad, Angola, Lesotho sit at the very bottom — high-point traps.'
+          metric: 'Life expectancy at birth, years, WHO 2024',
+          valueLabel: 'Life Exp. (yrs)',
+          valueFmt: 'decimal',
+          tip: '💡 Monaco leads at 87.0 yrs. Chad, Angola, Lesotho at the bottom — high-point traps.'
         },
         {
           id: 'density',
@@ -1173,7 +1246,9 @@
           emoji: '🔢',
           file: 'data/countries_density.csv',
           metric: 'People per km², 2024 (excl. micro-states)',
-          tip: '💡 Bangladesh #1. Rwanda at #4 and Lebanon at #3 surprise nearly everyone.'
+          valueLabel: 'Density (/km²)',
+          valueFmt: 'number',
+          tip: '💡 Bangladesh #1 at 1,265/km². Rwanda at #4 surprises nearly everyone.'
         },
         {
           id: 'usstates',
@@ -1181,15 +1256,19 @@
           emoji: '🇺🇸',
           file: 'data/us_states_population.csv',
           metric: 'State population, 2023 US Census estimates',
-          tip: '💡 Wyoming (rank 51) = 51 pts. DC at rank 49 trips people up.'
+          valueLabel: 'Population',
+          valueFmt: 'population',
+          tip: '💡 Wyoming (rank 51) = 51 pts. DC at rank 49 trips people up constantly.'
         },
         {
           id: 'tennis',
           name: "Men's Grand Slam Winners",
           emoji: '🎾',
           file: 'data/tennis_grandslams.csv',
-          metric: 'Total Grand Slam singles titles, Open Era',
-          tip: '💡 Djokovic leads with 24. Panatta, Noah, and Chang are deep-list gems.'
+          metric: 'Grand Slam singles titles, Open Era',
+          valueLabel: 'Titles',
+          valueFmt: 'number',
+          tip: '💡 Djokovic leads with 24. Panatta, Noah, Chang are deep-list gems worth big pts.'
         },
         {
           id: 'uscities',
@@ -1197,19 +1276,45 @@
           emoji: '🏙️',
           file: 'data/us_cities_population.csv',
           metric: 'City proper population, 2023 US Census',
-          tip: '💡 NYC is #1. Mesa, Omaha, Laredo, Hialeah — the 40s–80s are brutal.'
+          valueLabel: 'Population',
+          valueFmt: 'population',
+          tip: '💡 NYC is #1 at 8.3M. Mesa, Omaha, Laredo, Hialeah — the 40s–80s are brutal.'
         },
         {
           id: 'actors',
           name: 'Actors by IMDB Film Count',
           emoji: '🎬',
           file: 'data/actors_movies.csv',
-          metric: 'Number of feature film credits on IMDB',
-          tip: '💡 Danny Trejo has 400+ credits. Eric Roberts and Christopher Lee crack the top 5.'
+          metric: 'Feature film credits on IMDB',
+          valueLabel: 'Films',
+          valueFmt: 'number',
+          tip: '💡 Eric Roberts leads with 649 credits. Danny Trejo at #1 has 419. Wild list.'
         }
       ]
 
+      // ══════════════════════════════════════════════
+      //  VALUE FORMATTERS
+      // ══════════════════════════════════════════════
+      function fmtValue(raw, fmt) {
+        const n = parseFloat(raw)
+        if (isNaN(n)) return raw
+        switch (fmt) {
+          case 'population':
+            return n.toLocaleString()
+          case 'number':
+            return n.toLocaleString()
+          case 'decimal':
+            return n.toFixed(1)
+          default:
+            return n.toLocaleString()
+        }
+      }
+
+      // ══════════════════════════════════════════════
+      //  CSV CACHE & PARSER  (3-column: name,value,aliases)
+      // ══════════════════════════════════════════════
       const csvCache = {}
+
       async function fetchCSV(file) {
         if (csvCache[file]) return csvCache[file]
         const r = await fetch(file)
@@ -1219,30 +1324,51 @@
         csvCache[file] = items
         return items
       }
+
       function parseCSV(txt) {
         const lines = txt
           .split('\n')
           .map(l => l.trim())
           .filter(Boolean)
         if (!lines.length) return []
-        const start = lines[0].toLowerCase().startsWith('name') ? 1 : 0
+        const firstLow = lines[0].toLowerCase()
+        const start = firstLow.startsWith('name') ? 1 : 0
         return lines
           .slice(start)
           .map(line => {
-            const ci = line.indexOf(',')
-            const name = ci === -1 ? line.trim() : line.slice(0, ci).trim()
-            const aliasStr = ci === -1 ? '' : line.slice(ci + 1).trim()
+            // Split on first comma → name
+            const c1 = line.indexOf(',')
+            if (c1 === -1) return { name: line.trim(), value: '', aliases: [] }
+            const name = line.slice(0, c1).trim()
+            const rest = line.slice(c1 + 1)
+            // Split rest on first comma → value, aliases
+            const c2 = rest.indexOf(',')
+            let value = '',
+              aliasStr = ''
+            if (c2 === -1) {
+              // Could be value-only or alias-only (old format)
+              const candidate = rest.trim()
+              // If it looks numeric, treat as value; otherwise treat as aliases
+              value = /^[\d.]+$/.test(candidate) ? candidate : ''
+              aliasStr = /^[\d.]+$/.test(candidate) ? '' : candidate
+            } else {
+              value = rest.slice(0, c2).trim()
+              aliasStr = rest.slice(c2 + 1).trim()
+            }
             const aliases = aliasStr
               ? aliasStr
                   .split('|')
                   .map(a => a.trim())
                   .filter(Boolean)
               : []
-            return name ? { name, aliases } : null
+            return name ? { name, value, aliases } : null
           })
           .filter(Boolean)
       }
 
+      // ══════════════════════════════════════════════
+      //  ROUNDS SELECTOR
+      // ══════════════════════════════════════════════
       let infiniteMode = false
       function toggleInfinite() {
         infiniteMode = !infiniteMode
@@ -1258,26 +1384,28 @@
           p.innerHTML = '<strong>∞</strong> rounds'
           return
         }
-        const v = Math.min(
-          100,
-          Math.max(
-            1,
-            parseInt(document.getElementById('rounds-input').value) || 20
-          )
+        const v = clamp(
+          parseInt(document.getElementById('rounds-input').value) || 20,
+          1,
+          100
         )
         p.innerHTML = `<strong>${v}</strong> round${v === 1 ? '' : 's'}`
       }
       function getRoundsConfig() {
-        if (infiniteMode) return 10000
-        return Math.min(
-          100,
-          Math.max(
-            1,
-            parseInt(document.getElementById('rounds-input').value) || 20
-          )
+        if (infiniteMode) return Infinity
+        return clamp(
+          parseInt(document.getElementById('rounds-input').value) || 20,
+          1,
+          100
         )
       }
+      function clamp(v, lo, hi) {
+        return Math.min(hi, Math.max(lo, v))
+      }
 
+      // ══════════════════════════════════════════════
+      //  NAVIGATION
+      // ══════════════════════════════════════════════
       function showScreen(id) {
         document
           .querySelectorAll('.screen')
@@ -1308,6 +1436,9 @@
         })
       }
 
+      // ══════════════════════════════════════════════
+      //  LOAD & START
+      // ══════════════════════════════════════════════
       async function loadAndStart(cat) {
         const ov = document.getElementById('load-overlay')
         document.getElementById(
@@ -1324,16 +1455,20 @@
         } catch (e) {
           ov.classList.remove('visible')
           alert(
-            `Could not load category data.\n\nNote: This game must be served from a web server (not opened as a local file).\n\nFor local testing, run:\n  python -m http.server\nin the game folder, then open http://localhost:8000\n\nError: ${e.message}`
+            `Could not load category data.\n\nThis game must be served from a web server (not opened as a local file).\n\nLocal testing:\n  python -m http.server\nthen open http://localhost:8000\n\nError: ${e.message}`
           )
         }
       }
 
+      // ══════════════════════════════════════════════
+      //  GAME STATE & START
+      // ══════════════════════════════════════════════
       let gs = {}
+
       function startGame(cat, items) {
         const maxRounds = getRoundsConfig()
         gs = {
-          category: cat,
+          cat,
           items,
           roundsUsed: 0,
           maxRounds,
@@ -1343,11 +1478,13 @@
           missed: [],
           guessedNames: new Set()
         }
+
         document.getElementById('header-cat-name').textContent = cat.name
         document.getElementById('header-round').textContent = '1'
         document.getElementById('header-maxround').textContent = gs.infinite
           ? '∞'
           : maxRounds
+
         const rb = document.getElementById('rounds-badge'),
           ib = document.getElementById('infinite-badge')
         if (gs.infinite) {
@@ -1357,6 +1494,7 @@
           rb.style.display = ''
           ib.style.display = 'none'
         }
+
         document.getElementById('header-score').textContent = '0'
         document.getElementById(
           'sidebar-meta'
@@ -1369,6 +1507,7 @@
         const fb = document.getElementById('feedback')
         fb.className = 'feedback'
         fb.innerHTML = ''
+
         buildRoundsBar()
         updateProgress()
         showScreen('screen-game')
@@ -1378,8 +1517,8 @@
 
       function buildRoundsBar() {
         const bw = document.getElementById('rounds-bar-wrap'),
-          iw = document.getElementById('inf-counter-wrap'),
-          bar = document.getElementById('rounds-bar')
+          iw = document.getElementById('inf-counter-wrap')
+        const bar = document.getElementById('rounds-bar')
         if (gs.infinite) {
           bw.style.display = 'none'
           iw.style.display = 'block'
@@ -1398,6 +1537,9 @@
         document.getElementById('rounds-label').textContent = '0 used'
       }
 
+      // ══════════════════════════════════════════════
+      //  NORMALISATION & MATCHING
+      // ══════════════════════════════════════════════
       function norm(s) {
         return s
           .toLowerCase()
@@ -1416,40 +1558,65 @@
           .replace(/\s+/g, ' ')
           .trim()
       }
+
       function findMatch(input) {
         const ni = norm(input)
         if (!ni) return null
         for (let i = 0; i < gs.items.length; i++) {
           const item = gs.items[i]
-          if (ni === norm(item.name)) return { rank: i + 1, name: item.name }
+          if (ni === norm(item.name))
+            return { rank: i + 1, name: item.name, value: item.value }
           if (item.aliases)
             for (const a of item.aliases)
-              if (ni === norm(a)) return { rank: i + 1, name: item.name }
+              if (ni === norm(a))
+                return { rank: i + 1, name: item.name, value: item.value }
         }
         return null
       }
 
+      // ══════════════════════════════════════════════
+      //  GUESS LOGIC
+      // ══════════════════════════════════════════════
       function submitGuess() {
         if (!gs.infinite && gs.roundsUsed >= gs.maxRounds) return
         const inp = document.getElementById('guess-input')
         const raw = inp.value.trim()
         if (!raw) return
         inp.value = ''
+
         const fb = document.getElementById('feedback')
         const match = findMatch(raw)
+
         if (match) {
           const nk = norm(match.name)
           if (gs.guessedNames.has(nk)) {
             fb.className = 'feedback dupe'
-            fb.innerHTML = `<span>⚠️ Already found <strong>${match.name}</strong> (rank #${match.rank})!</span>`
+            fb.innerHTML = `<span>⚠️ Already found <strong>${match.name}</strong> (rank #${match.rank})</span>`
             useRound('used')
           } else {
             gs.guessedNames.add(nk)
             const pts = match.rank
             gs.score += pts
-            gs.found.push({ rank: match.rank, name: match.name, points: pts })
+            gs.found.push({
+              rank: match.rank,
+              name: match.name,
+              value: match.value,
+              points: pts
+            })
+            const valStr = match.value
+              ? fmtValue(match.value, gs.cat.valueFmt)
+              : ''
             fb.className = 'feedback correct'
-            fb.innerHTML = `<span>✓ <strong>${match.name}</strong> — Rank #${match.rank}!</span><span class="feedback-rank">+${pts} pts</span>`
+            fb.innerHTML = `
+        <span>
+          ✓ <strong>${match.name}</strong> — Rank #${match.rank}
+          ${
+            valStr
+              ? `<span class="feedback-val">${gs.cat.valueLabel}: ${valStr}</span>`
+              : ''
+          }
+        </span>
+        <span class="feedback-pts">+${pts} pts</span>`
             document.getElementById('header-score').textContent =
               gs.score.toLocaleString()
             rebuildFound()
@@ -1463,6 +1630,7 @@
           rebuildMissed()
           useRound('used')
         }
+
         inp.focus()
         if (gs.found.length === gs.items.length) {
           setTimeout(() => endGame(false, true), 600)
@@ -1497,7 +1665,14 @@
           .forEach(item => {
             const el = document.createElement('div')
             el.className = 'found-item'
-            el.innerHTML = `<span class="found-rank">#${item.rank}</span><span class="found-name">${item.name}</span><span class="found-pts">+${item.points}</span>`
+            const valStr = item.value
+              ? fmtValue(item.value, gs.cat.valueFmt)
+              : ''
+            el.innerHTML = `
+      <span class="found-rank">#${item.rank}</span>
+      <span class="found-name">${item.name}</span>
+      <span class="found-val">${valStr}</span>
+      <span class="found-pts">+${item.points}</span>`
             list.appendChild(el)
           })
         document.getElementById('found-section').style.display = 'block'
@@ -1536,50 +1711,65 @@
           : '▶'
       }
 
+      // ══════════════════════════════════════════════
+      //  END GAME & RESULTS
+      // ══════════════════════════════════════════════
       function endGame(manual = false, allFound = false) {
-        const { items, found, score, maxRounds, infinite, roundsUsed } = gs
+        const { items, found, score, cat, maxRounds, infinite, roundsUsed } = gs
         document.getElementById('results-score').textContent =
           score.toLocaleString()
-        const total = items.length,
-          max = (total * (total + 1)) / 2,
-          pct = (score / max) * 100
+
+        const total = items.length
+        const maxPossible = (total * (total + 1)) / 2
+        const pct = (score / maxPossible) * 100
         const rword = infinite
           ? `${roundsUsed} guess${roundsUsed === 1 ? '' : 'es'}`
           : `${maxRounds} round${maxRounds === 1 ? '' : 's'}`
-        let v = ''
+
+        let verdict = ''
         if (allFound)
-          v = `🏆 <strong>PERFECT GAME!</strong> You found all ${total} items!`
+          verdict = `🏆 <strong>PERFECT GAME!</strong> You found all ${total} items!`
         else if (pct > 60)
-          v = `🔥 <strong>Elite level.</strong> ${found.length}/${total} found in ${rword}.`
+          verdict = `🔥 <strong>Elite level.</strong> ${found.length}/${total} found in ${rword}.`
         else if (pct > 30)
-          v = `⭐ <strong>Solid performance.</strong> ${found.length}/${total} found.`
+          verdict = `⭐ <strong>Solid performance.</strong> ${found.length}/${total} found.`
         else if (found.length > 0)
-          v = `📚 <strong>Learning curve.</strong> ${found.length}/${total} — keep studying!`
+          verdict = `📚 <strong>Learning curve.</strong> ${found.length}/${total} — keep studying!`
         else
-          v = `😬 <strong>Tough start.</strong> 0 from ${total}. Better luck next round!`
-        document.getElementById('results-verdict').innerHTML = v
-        const bd = document.getElementById('results-breakdown')
-        bd.innerHTML =
-          '<div class="breakdown-header"><span>Rank / Item</span><span>Pts</span></div>'
-        const fr = new Set(found.map(f => f.rank))
+          verdict = `😬 <strong>Tough start.</strong> 0 from ${total}. Better luck next round!`
+        document.getElementById('results-verdict').innerHTML = verdict
+
+        // Update value column header
+        document.getElementById('results-val-header').textContent =
+          cat.valueLabel || 'Value'
+
+        // Build results table
+        const tbody = document.getElementById('results-tbody')
+        tbody.innerHTML = ''
+        const foundRanks = new Set(found.map(f => f.rank))
         items.forEach((item, i) => {
-          const rank = i + 1,
-            isHit = fr.has(rank)
-          const el = document.createElement('div')
-          el.className = `breakdown-item ${isHit ? 'hit' : 'miss'}`
-          el.innerHTML = `<span class="breakdown-rank">#${rank}</span><span class="breakdown-name">${
-            item.name
-          }${
+          const rank = i + 1
+          const isHit = foundRanks.has(rank)
+          const valStr = item.value ? fmtValue(item.value, cat.valueFmt) : '—'
+          const tr = document.createElement('tr')
+          tr.className = isHit ? 'hit' : 'miss'
+          tr.innerHTML = `
+      <td class="td-rank">#${rank}</td>
+      <td class="td-name">${item.name}${
             !isHit ? '<span class="missed-tag">missed</span>' : ''
-          }</span><span class="breakdown-pts">${
-            isHit ? '+' + rank : '—'
-          }</span>`
-          bd.appendChild(el)
+          }</td>
+      <td class="td-val">${valStr}</td>
+      <td class="td-pts">${isHit ? '+' + rank : '—'}</td>`
+          tbody.appendChild(tr)
         })
+
         showScreen('screen-results')
         if (allFound || pct > 40) launchConfetti()
       }
 
+      // ══════════════════════════════════════════════
+      //  CONFETTI
+      // ══════════════════════════════════════════════
       function launchConfetti() {
         const c = document.getElementById('confetti-container')
         const cols = [
@@ -1609,6 +1799,9 @@
         }, 3500)
       }
 
+      // ══════════════════════════════════════════════
+      //  KEYBOARD & INIT
+      // ══════════════════════════════════════════════
       document.getElementById('guess-input').addEventListener('keydown', e => {
         if (e.key === 'Enter') submitGuess()
       })

@@ -1,98 +1,98 @@
-name,aliases
-Apple,aapl
-NVIDIA,nvda|nvidia corporation
-Microsoft,msft
-Alphabet,google|googl|goog
-Amazon,amzn
-Meta,facebook|meta platforms
-Saudi Aramco,aramco
-TSMC,taiwan semiconductor|taiwan semiconductor manufacturing
-Berkshire Hathaway,berkshire|brk
-Broadcom,avgo
-Tesla,tsla
-Eli Lilly,lilly
-JPMorgan Chase,jpmorgan|jpm|jp morgan
-Walmart,wmt
-Visa,visa inc
-Mastercard,ma
-ExxonMobil,exxon|xom
-UnitedHealth,unitedhealth group|unh
-Samsung,samsung electronics
-LVMH,lvmh moet hennessy
-Novo Nordisk,novo
-Oracle,orcl
-Costco,cost
-Johnson & Johnson,j&j|jnj|johnson and johnson
-Tencent,tencent holdings
-Netflix,nflx
-Procter & Gamble,p&g|pg|procter and gamble
-Home Depot,hd
-SAP
-Palantir,pltr
-AbbVie,abbv
-Bank of America,bofa|bac
-ASML,asml holding
-Nestle,nestlé
-Hermes,hermès
-Wells Fargo,wfc
-Chevron,cvx
-Salesforce,crm
-Toyota,toyota motor
-AMD,advanced micro devices
-Coca-Cola,coke
-Goldman Sachs,gs
-Linde
-Merck,mrk
-L'Oreal,loreal
-T-Mobile,tmus|tmobile
-Adobe,adbe
-Accenture
-ServiceNow,now
-Reliance Industries,reliance
-American Express,amex|axp
-Caterpillar,cat
-Philip Morris,pm|philip morris international
-PepsiCo,pepsi
-Booking Holdings,booking.com|bkng
-Abbott Laboratories,abbott|abt
-Thermo Fisher,tmo
-Intuitive Surgical,isrg
-ARM Holdings,arm
-Qualcomm,qcom
-Uber,uber technologies
-Inditex,zara
-Shell,shell plc
-TotalEnergies,total
-Pfizer,pfe
-Bristol-Myers Squibb,bms|bmy
-Morgan Stanley,ms
-Citigroup,citi
-Medtronic
-Amgen
-BlackRock,blk
-Texas Instruments,ti|txn
-Union Pacific,unp
-NextEra Energy,nee
-Verizon,vz
-Applied Materials,amat
-Starbucks,sbux
-Deere,john deere|de
-ICBC,industrial and commercial bank of china
-BNP Paribas
-Prologis,pld
-Air Products,apd
-HSBC
-Alibaba,baba
-Spotify
-Eaton,etn
-Danaher,dhr
-Lockheed Martin,lmt
-RTX,raytheon|rtx corporation
-Gilead Sciences,gild
-Cigna
-CVS Health,cvs
-Moody's,mcco
-S&P Global,spgi
-Intercontinental Exchange,ice
-CME Group,cme
-Zoetis
+name,value,aliases
+Apple,3452,aapl
+NVIDIA,3012,nvda|nvidia corporation
+Microsoft,2985,msft
+Alphabet,2142,google|googl|goog
+Amazon,2261,amzn
+Meta,1551,facebook|meta platforms
+Saudi Aramco,1712,aramco
+TSMC,878,taiwan semiconductor|taiwan semiconductor manufacturing
+Berkshire Hathaway,981,berkshire|brk
+Broadcom,850,avgo
+Tesla,848,tsla
+Eli Lilly,727,lilly
+JPMorgan Chase,738,jpmorgan|jpm|jp morgan
+Walmart,718,wmt
+Visa,631,visa inc
+Mastercard,487,ma
+ExxonMobil,476,exxon|xom
+UnitedHealth,481,unitedhealth group|unh
+Samsung,368,samsung electronics
+LVMH,295,lvmh moet hennessy
+Novo Nordisk,401,novo
+Oracle,477,orcl
+Costco,421,cost
+Johnson & Johnson,371,j&j|jnj|johnson and johnson
+Tencent,373,tencent holdings
+Netflix,381,nflx
+Procter & Gamble,370,p&g|pg|procter and gamble
+Home Depot,355,hd
+SAP,309,
+Palantir,278,pltr
+AbbVie,325,abbv
+Bank of America,325,bofa|bac
+ASML,286,asml holding
+Nestle,228,nestlé
+Hermes,242,hermès
+Wells Fargo,255,wfc
+Chevron,278,cvx
+Salesforce,254,crm
+Toyota,247,toyota motor
+AMD,191,advanced micro devices
+Coca-Cola,266,coke
+Goldman Sachs,199,gs
+Linde,212,
+Merck,251,mrk
+L'Oreal,207,loreal
+T-Mobile,269,tmus|tmobile
+Adobe,169,adbe
+Accenture,187,
+ServiceNow,205,now
+Reliance Industries,229,reliance
+American Express,209,amex|axp
+Caterpillar,192,cat
+Philip Morris,183,pm|philip morris international
+PepsiCo,193,pepsi
+Booking Holdings,162,booking.com|bkng
+Abbott Laboratories,201,abbott|abt
+Thermo Fisher,186,tmo
+Intuitive Surgical,195,isrg
+ARM Holdings,148,arm
+Qualcomm,187,qcom
+Uber,156,uber technologies
+Inditex,172,zara
+Shell,210,shell plc
+TotalEnergies,138,total
+Pfizer,141,pfe
+Bristol-Myers Squibb,145,bms|bmy
+Morgan Stanley,189,ms
+Citigroup,127,citi
+Medtronic,116,
+Amgen,170,
+BlackRock,150,blk
+Texas Instruments,159,ti|txn
+Union Pacific,148,unp
+NextEra Energy,137,nee
+Verizon,166,vz
+Applied Materials,142,amat
+Starbucks,91,sbux
+Deere,112,john deere|de
+ICBC,242,industrial and commercial bank of china
+BNP Paribas,82,
+Prologis,96,pld
+Air Products,65,apd
+HSBC,173,
+Alibaba,189,baba
+Spotify,120,
+Eaton,131,etn
+Danaher,158,dhr
+Lockheed Martin,117,lmt
+RTX,169,raytheon|rtx corporation
+Gilead Sciences,113,gild
+Cigna,82,
+CVS Health,75,cvs
+Moody's,82,mcco
+S&P Global,148,spgi
+Intercontinental Exchange,90,ice
+CME Group,85,cme
+Zoetis,76,

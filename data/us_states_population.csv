@@ -1,0 +1,52 @@
+name,value,aliases
+California,38965193,ca
+Texas,30503301,tx
+Florida,22610726,fl
+New York,19571216,ny
+Pennsylvania,13002700,pa
+Illinois,12549689,il
+Ohio,11785935,oh
+Georgia,11029227,ga
+North Carolina,10835491,nc
+Michigan,10037261,mi
+New Jersey,9290841,nj
+Virginia,8715698,va
+Washington,7812880,wa|washington state
+Arizona,7431344,az
+Massachusetts,7001399,ma
+Tennessee,7126489,tn
+Indiana,6849507,in
+Missouri,6196010,mo
+Maryland,6180253,md
+Wisconsin,5910955,wi
+Colorado,5877610,co
+Minnesota,5737915,mn
+South Carolina,5282634,sc
+Alabama,5108468,al
+Louisiana,4573749,la
+Kentucky,4526154,ky
+Oregon,4233358,or
+Oklahoma,4053824,ok
+Connecticut,3617176,ct
+Utah,3417734,ut
+Iowa,3207004,ia
+Nevada,3194176,nv
+Arkansas,3067732,ar
+Mississippi,2939690,ms
+Kansas,2934582,ks
+New Mexico,2114371,nm
+Nebraska,1978379,ne
+Idaho,1964726,id
+West Virginia,1770071,wv
+Hawaii,1435138,hi
+New Hampshire,1402054,nh
+Maine,1395722,me
+Montana,1132812,mt
+Rhode Island,1095962,ri
+Delaware,1031890,de
+South Dakota,919318,sd
+North Dakota,783926,nd
+Alaska,733583,ak
+DC,678972,washington dc|district of columbia|d.c.
+Vermont,647464,vt
+Wyoming,584057,wy
