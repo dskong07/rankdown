@@ -1,11 +1,11 @@
-# RANKDOWN 🏆
+# RANKDOWN 
 
 **The Niche Knowledge Party Game** — guess ranked items, score points equal to the rank number.
 
 ## File Structure
 
 ```
-index.html          ← main game (open this)
+index.html
 data/
   countries_population.csv   (100 items)
   countries_area.csv         (100 items)
@@ -43,14 +43,14 @@ npx serve .
 
 > ⚠️ Opening `index.html` directly as a `file://` URL will NOT work.
 
-## Adding New Categories
+## Adding New Categories/Datasets
 
 1. Create `data/my_category.csv` with format:
    ```
    name,aliases
-   Item One,alias1|alias2
-   Item Two,
-   Item Three,alt name|another alias
+   item 1,alias1|alias2
+   item 2,alias1|alias2
+   etc.
    ```
    The rank is determined by row order (row 1 = rank #1).
 
