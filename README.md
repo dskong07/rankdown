@@ -54,7 +54,7 @@ npx serve .
    ```
    The rank is determined by row order (row 1 = rank #1).
 
-2. Add an entry to the `CATEGORIES` array in `index.html`:
+2. Add an entry to the `CATEGORIES` array in `index.html` in json format:
    ```js
    {
      id: "my_cat",
